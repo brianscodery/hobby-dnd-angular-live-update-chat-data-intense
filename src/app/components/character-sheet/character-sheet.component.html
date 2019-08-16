@@ -350,7 +350,7 @@
         <mat-form-field style="width: 30px;"
                         *ngFor="let treasure of treasuresInOrder">
           <input matInput
-                 [value]="character.treasure[treasure]">
+                 [value]="character.treasures[treasure]">
           <mat-hint>{{treasure | uppercase}}</mat-hint>
         </mat-form-field>
       </div>

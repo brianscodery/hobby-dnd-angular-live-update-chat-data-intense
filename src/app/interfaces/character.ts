@@ -1,4 +1,5 @@
 import { VersatileStats, DamageType } from './character';
+import { AnimationDurations } from '@angular/material';
 export interface AbilityScore {
   score: number;
   modifier: number;
@@ -159,7 +160,6 @@ export const ABILITIES_IN_ORDER: Ability[] = [ 'strength', 'dexterity', 'constit
 export const TREASURES_IN_ORDER = [ 'cp', 'sp', 'ep', 'gp', 'pp' ];
 
 
-
 export type Level = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20;
 
 
@@ -180,13 +180,17 @@ export interface HitDie {
   max: number;
   available: number;
 }
-export interface Treasure {
+export interface Treasures {
   cp: number;
   sp: number;
   ep: number;
   gp: number;
   pp: number;
 }
+
+export type Treasure = 'cp' | 'sp' | 'ep' | 'gp' | 'pp';
+
+
 export interface EquipmentItem {
   name: string;
   description: string;
@@ -220,7 +224,7 @@ export interface Character {
   speed: number;
   armourClass: number;
   hitDice: HitDie[];
-  treasure: Treasure;
+  treasures: Treasures;
   equipment: EquipmentItem[];
   proficiencyBonus: 1 | 2 | 3 | 4 | 5;
   savingThrows: SavingThrows;
@@ -229,15 +233,15 @@ export interface Character {
   weapons: Weapon[];
   size: Size;
 }
-export type WeaponType = 'melee' | 'ranged';
+export type WeaponRange = 'melee' | 'ranged';
 export type WeaponCategory = 'simple' | 'martial';
 
 export class Weapon {
   name: string;
-  type: WeaponType;
+  range: WeaponRange;
   category: WeaponCategory;
   weight: number;
-  cost: number;
+  cost: Cost;
   damageDie: DieNumber;
   damageType: DamageType;
   ammunition?: boolean;
@@ -257,31 +261,34 @@ export class Weapon {
   versatileStats?: VersatileStats | false;
   silvered?: boolean;
   monk?: boolean;
+  magicalBonus?: number;
   constructor (
     name: string,
-    type: WeaponType,
+    range: WeaponRange,
     category: WeaponCategory,
-    cost: number,
+    cost: Cost,
     weight: number,
     damageType: DamageType,
     damageDie: DieNumber,
-    conditions?: WeaponCondition[],
+    rangedStats: RangedStats,
+    properties?: WeaponProperty[],
     ammunitionStats?: AmmunitionStats,
-    rangedStats?: RangedStats,
-    versatileStats?: VersatileStats ) {
+    versatileStats?: VersatileStats,
+    magicalBonus?: number ) {
     this.name = name;
-    this.type = type;
+    this.range = range;
     this.category = category;
     this.cost = cost;
     this.weight = weight;
     this.damageDie = damageDie;
     this.damageType = damageType;
-    if ( conditions ) {
-      conditions.forEach( conditionName => this[ conditionName ] = true );
+    if ( properties ) {
+      properties.forEach( propertyName => this[ propertyName ] = true );
     }
     if ( ammunitionStats ) { this.ammunitionStats = ammunitionStats; }
     if ( rangedStats ) { this.rangedStats = rangedStats; }
     if ( versatileStats ) { this.versatileStats = versatileStats; }
+    if ( magicalBonus ) { this.magicalBonus = magicalBonus; }
   }
 }
 
@@ -313,7 +320,12 @@ export interface VersatileStats {
   twoHandedDie: DieNumber;
 }
 
-export type WeaponCondition =
+export interface Cost {
+  denomination: Treasure;
+  quantity: number;
+}
+
+export type WeaponProperty =
   | 'finesse'
   | 'heavy'
   | 'light'
@@ -341,3 +353,52 @@ export type DamageType =
   | 'radiant'
   | 'slashing'
   | 'thunder';
+
+export class Armour {
+  name: string;
+  weightCategory: ArmourWeightCategory;
+  armourClass: ArmourClass;
+  cost: Cost;
+  weight: number;
+  stealthDisadvantage?: boolean;
+  strengthMinimum?: number;
+  magicalBonus?: number;
+  constructor ( name: string, wtCat: ArmourWeightCategory, ac: ArmourClass, cost: Cost, weight: number, stlthDis?: boolen, strMin?: number, magBonus?: number ) {
+    this.name = name;
+    this.weightCategory = wtCat;
+    this.armourClass = ac;
+    this.cost = cost;
+    this.weight = weight;
+    this.stealthDisadvantage = stlthDis;
+    this.strengthMinimum = strMin;
+    this.magicalBonus = magBonus;
+  }
+}
+
+export type ArmourWeightCategory =
+  | 'light'
+  | 'medium'
+  | 'heavy';
+
+export interface ArmourClass {
+  baseAC?: number | null;
+  dexBonus: boolean;
+  maxBonus: number;
+}
+
+export interface Spell {
+  castingTime: CastingTime;
+  classes: Class[];
+  components: MagicComponent[];
+  concentration: boolean;
+  description: string[];
+  duration: Duration;
+  level: SpellLevel;
+  name: string;
+  page: string;
+  range: Range;
+  ritual: boolean;
+  school: MagicSchool;
+}
+
+export type MagicComponent = 'verbal' | 'somatic' | 'material';
