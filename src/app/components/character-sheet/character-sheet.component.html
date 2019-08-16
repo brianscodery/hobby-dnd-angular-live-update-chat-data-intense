@@ -1,0 +1,399 @@
+<!-- <mat-slide-toggle
+                  class="example-margin"
+                  [color]="'warn'"
+                  [disabled]="disabled">
+  Edit Mode
+</mat-slide-toggle> -->
+
+
+
+
+
+<mat-grid-list cols="9"
+               rowHeight="50px">
+  <mat-grid-tile colspan="9"
+                 rowspan="3">
+    <mat-card class="top-card">
+      <div [ngClass]="{'death-div': hello2===3}">
+
+        <img class="character"
+             src="../../../assets/images/js.png"
+             alt="js the dark elf"
+             [matTooltip]="hello2===3 ? character.name + ' (deceased)' : character.name">
+      </div>
+
+
+      <div class="class-and-level">
+
+        <div *ngFor="let class of character.classes; let i = index"
+             class="class-row">
+
+          <mat-form-field class="class-input">
+            <input matInput
+                   [value]="class.class"
+                   [disabled]="disabled">
+            <mat-hint *ngIf="i===character.classes.length - 1"
+                      align="start">Class</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="level-input">
+            <input matInput
+                   [value]="class.level"
+                   [disabled]="disabled">
+            <mat-hint *ngIf="i===character.classes.length - 1"
+                      align="start">Level</mat-hint>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="race-and-background">
+
+        <mat-form-field class="class-row">
+          <input matInput
+                 [value]="character.race"
+                 placeholder="Race">
+        </mat-form-field>
+        <mat-form-field class="class-row">
+          <input matInput
+                 [value]="character.background">
+          <mat-hint>Background</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="alignment-and-xp">
+
+        <mat-form-field class="class-row">
+          <input matInput
+                 [value]="character.alignment"
+                 placeholder="Alignment">
+        </mat-form-field>
+
+        <mat-form-field class="class-row">
+          <input matInput
+                 value="n: n &#8712; N">
+          <mat-hint>XP</mat-hint>
+
+        </mat-form-field>
+      </div>
+
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="13">
+    <div
+         style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: flex-start;; margin: 1px;">
+      <div *ngFor="let ability of abilitiesInOrder;"
+           style="width: calc(100% - 12px); height: calc(108px - 8px); border: 1px solid red; display: flex; flex-direction: column; justify-content: space-around; align-items: center; border: 1px solid lightslategray; border-radius: 15%; background-color: #303030;">
+        <div class="ability-title"
+             style="text-decoration: underline; font-size:.75rem;">{{ability | titlecase}}
+        </div>
+        <div class="ability-modifier"
+             style="font-size: 1.5em;">
+          {{character.abilityScores[ability].modifier | modifier}}</div>
+        <div class="ability-score"
+             style="width: 50%;; border: 1px solid lightslategray; border-radius: 50%;">
+          {{character.abilityScores[ability].score}}</div>
+      </div>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2"
+                 rowspan="1">
+    <mat-checkbox color="warn">Inspiration</mat-checkbox>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field class="example-full-width">
+      <input matInput
+             [value]="character.armourClass">
+      <mat-hint>Armour Class</mat-hint>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field class="example-full-width">
+      <input matInput
+             [ngModel]="character.abilityScores.dexterity.modifier | modifier">
+      <mat-hint>
+        Initiative
+      </mat-hint>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1"
+                 rowspan="2">
+    <mat-form-field class="example-full-width">
+      <input matInput
+             [value]="character.speed + ' ft.'">
+      <mat-hint>Speed</mat-hint>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3"
+                 rowspan="12"
+                 style="border: 1px solid white;">
+    Features & Traits
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2"
+                 rowspan="1">
+    <mat-icon color="warn">filter_3</mat-icon>&nbsp;Proficiency Bonus
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2"
+                 rowspan="3">
+   
+    <div
+         style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid darkgray; border-radius: 4px; padding: 2px;">
+      <div style="width: 100%;text-decoration: underline; font-size: .75em; text-align: center;">
+        Saving Throw Modifiers
+      </div>
+
+      <mat-selection-list #savingThrows
+                          dense
+                          style="width: 100%;">
+        <div>
+          <mat-list-option checkboxPosition="before"
+                           *ngFor="let ability of abilitiesInOrder"
+                           [selected]="character.savingThrows[ability].proficient"
+                           style="height: 20px; width: 100%">
+            <div style="width: 100%; display: flex; justify-content: space-between;">
+              <div style="width: 30%; text-decoration: underline;">
+
+                &nbsp;{{character.savingThrows[ability].savingThrow | modifier}}&nbsp;
+              </div>
+              <div style="width: 70%; text-align: left;">
+
+
+                {{ability | titlecase}}
+              </div>
+            </div>
+
+          </mat-list-option>
+        </div>
+      </mat-selection-list>
+    </div>
+
+  </mat-grid-tile>
+  
+  <mat-grid-tile colspan="3"
+                 rowspan="2">
+    <div>
+
+      <div>
+
+        Hit Points
+      </div>
+      <div
+           style="width: 100%; display: flex; flex-direction: row; align-items: center; justify-items: space-between;">
+        <div>
+
+          <mat-form-field style="width: 50px;">
+            <input matInput
+                   [value]="character.hitPoints.temp"
+                   style="width: 50px;">
+            <mat-hint>Temp</mat-hint>
+          </mat-form-field>
+        </div>
+        <div>
+          &nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;
+        </div>
+        <div>
+
+          <mat-form-field style="width: 50px;">
+            <input matInput
+                   [value]="character.hitPoints.current"
+                   style="width: 50px;">
+            <mat-hint>Current</mat-hint>
+          </mat-form-field>
+        </div>
+        <div>
+          &nbsp;&nbsp;&nbsp;of&nbsp;&nbsp;&nbsp;
+        </div>
+        <div>
+
+          <mat-form-field style="width: 50px;">
+            <input matInput
+                   [value]="character.hitPoints.max"
+                   style="width: 50px;">
+            <mat-hint>Max</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3"
+                 rowspan="2"
+                 style="border: 1px solid white; overflow: scroll;">
+    <div style="height: 100%; width: 100%;"
+         fxLayout="column wrap"
+         
+         fxLayoutAlign="space-around space-around">
+      <div *ngFor="let die of character.collectedDice.availableDice">
+        <app-svgdie [die]="die"
+                    [available]="true"
+                    [numberOfDice]="character.collectedDice.totalDice"></app-svgdie>
+      </div>
+      <div *ngFor="let die of character.collectedDice.usedDice">
+        <app-svgdie [die]="die"
+                    [available]="false"
+                    [numberOfDice]="character.collectedDice.totalDice"></app-svgdie>
+
+
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2"
+                 rowspan="8"
+                 >
+    
+      <div
+           style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid darkgray; border-radius: 4px; padding: 2px;">
+        <div style="width: 100%;text-decoration: underline; font-size: .75em; text-align: center;">
+          Skill Modifiers
+        </div>
+    
+        <mat-selection-list #skillModifiers
+                            dense
+                            style="width: 100%;">
+          <div>
+            <mat-list-option checkboxPosition="before"
+                             *ngFor="let skill of skillsInOrder"
+                             [selected]="character.proficiencies.skills.includes(skill)"
+                             style="height: 20px; width: 100%">
+              <div style="width: 100%; display: flex; justify-content: space-between;">
+                <div style="width: 30%; text-decoration: underline;">
+    
+                  &nbsp;{{character.skillModifiers[skill]  | modifier}}&nbsp;
+                </div>
+                <div style="width: 70%; text-align: left; white-space: nowrap;">
+    
+    
+                  {{skill | uncamelcase | titlecase}}
+                </div>
+              </div>
+    
+            </mat-list-option>
+          </div>
+        </mat-selection-list>
+      </div>
+    
+  </mat-grid-tile>
+  <mat-grid-tile colspan="3"
+                 rowspan="2"
+                 style="border: 1px solid white;">
+    <div
+         style="width: 100%; height: 100%; display: flex; justify-content: space-evenly; overflow: scroll;">
+      <div
+           style="width: 40%; height: 100%; display: flex; flex-direction: column; justify-content:flex-end;">
+
+        <mat-slider class="my-slider"
+                    max="3"
+                    min="0"
+                    step="1"
+                    thumbLabel
+                    tickInterval="1"
+                    [(ngModel)]="hello"
+                    color="accent"
+                    style="height: 20px;">
+        </mat-slider>
+        <h6>Death Successes</h6>
+      </div>
+      <div
+           style="width: 40%; height: 100%; display: flex; flex-direction: column; justify-content:flex-end;">
+
+
+        <mat-slider class="my-slider"
+                    max="3"
+                    min="0"
+                    step="1"
+                    thumbLabel
+                    tickInterval="1"
+                    [(ngModel)]="hello2"
+                    color="warn"
+                    style="height: 20px;">
+        </mat-slider>
+        <h6>Death Failures</h6>
+
+      </div>
+    </div>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile colspan="3"
+                 rowspan="5"
+                 style="border: 1px solid white;">
+    Attacks
+  </mat-grid-tile>
+
+
+  
+  <mat-grid-tile colspan="3"
+                 rowspan="6"
+                 style="border: 1px solid white;">
+    Spells
+  </mat-grid-tile>
+<mat-grid-tile colspan="3"
+               rowspan="1"
+               >
+  <div  style="width: 100%; height: 100%;">
+  <div style="position: absolute; top: 4px;  width: 33px; height: 33px;border: 1px solid red; border-radius: 15%; z-index: 1; background-color: #303030; vertical-align: middle; line-height: 33px;" >{{character.abilityScores.wisdom.passiveScore}}</div>
+  <div style="position: absolute; right: 0px;width: calc(100% - 30px); height: 40px; border: 1px solid red; border-radius: 15%; z-index: 0; vertical-align: middle; line-height: 40px;"[matTooltip]="passiveScores" [matTooltipClass]="'my-tooltip'">Passive Wisdom (Perception)</div>
+  </div>
+</mat-grid-tile>
+  <mat-grid-tile colspan="3"
+                 rowspan="6"
+                 style="border: 1px solid darkgray; border-radius: 4px;">
+    <div style="height: 100%; width: 100%">
+
+      <div style=" display: flex; justify-content: space-around; align-items: flex-start;">
+        <mat-form-field style="width: 30px;"
+                        *ngFor="let treasure of treasuresInOrder">
+          <input matInput
+                 [value]="character.treasure[treasure]">
+          <mat-hint>{{treasure | uppercase}}</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-list dense
+                style="overflow: scroll;">
+        <mat-list-item *ngFor="let item of character.equipment"
+                       style="margin-bottom: -10px;"
+                       [matTooltip]="item.description"> {{item.name | titlecase}}
+          ({{item.quantity || 1}})
+        </mat-list-item>
+
+      </mat-list>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3"
+                 rowspan="5"
+                 style="border: 1px solid white;">
+    Proficiencies
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="9"
+                 rowspan="8">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <textarea matInput
+                  placeholder="Personality Traits"></textarea>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <textarea matInput
+                  placeholder="Ideals"></textarea>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <textarea matInput
+                  placeholder="Bonds"></textarea>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <textarea matInput
+                  placeholder="Flaws"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-grid-tile>
+
+
+</mat-grid-list>

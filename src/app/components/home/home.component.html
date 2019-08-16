@@ -1,0 +1,14 @@
+<!-- <section fxLayout="column" fxFlexAlign="stretch"> -->
+<section>
+
+  <mat-tab-group class="mat-app-background" (selectedTabChange)="executeSelectedChange($event)">
+    <mat-tab *ngFor="let partyMember of characterService.partyMembers$ | async">
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">{{partyMember.generalStatus}}</mat-icon>
+          {{partyMember.name}}
+        </ng-template>
+    <app-character-sheet  [character]="partyMember"></app-character-sheet>
+    </mat-tab>
+   
+  </mat-tab-group>
+</section>

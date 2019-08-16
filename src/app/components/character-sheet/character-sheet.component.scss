@@ -1,0 +1,90 @@
+
+.class-input {
+  width: 100%;
+  max-width: 75px;
+  margin-right: 5px;
+}
+
+.class-row {
+  margin: -17px 0 -17px 0;
+
+}
+.level-input {
+  width: 100%;
+  max-width: 30px;
+}
+
+.class-and-level, .alignment-and-xp, .race-and-background {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 150px;
+}
+
+.alignment-and-xp, .race-and-background {
+  width: 125px;
+}
+
+.top-card {
+ display: flex;
+ justify-content:space-between;
+ align-items: center;
+ margin: auto;
+}
+
+
+// .example-container > * {
+//   width: 100%;
+// }
+// .img-card {
+//   max-height: 100px;
+//   max-width: 100px;
+//   padding: 0;
+// }
+
+ img{ 
+   display: none;
+
+}
+.mat-card {
+  margin-top: 20px;
+  width: 100%;
+}
+@media screen and (min-width: 500px) {
+img {
+  display:initial;
+     max-width: 100px;
+border-radius: 3px;
+}
+}
+
+
+.example-full-width {
+  width: 95%;
+}
+.example-form {
+  padding-top: 0;
+  margin-top: -35px;
+}
+.my-tooltip {
+  white-space: pre-line;
+}
+
+.death-div:after {
+  content:"";
+  position:absolute;
+  border-top:2px solid red;
+  width: 141px;
+  transform: rotate(150grad);
+  transform-origin: 0% 0%;
+
+}
+.death-div:before {
+  content:"";
+  position:absolute;
+  border-top:2px solid red;
+  width: 141px;
+  transform: rotate(50grad);
+  transform-origin: 0% 0%;
+
+}

@@ -1,0 +1,24 @@
+
+section div p{
+    color: #E91E63;
+    font-size: 30px;
+    margin: 30px 0;
+}
+ 
+section div + p{
+    color: #E91E63;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+mat-tab-group {
+    text-align: center;
+}
+ 
+mat-tab-group p {
+    padding-top: 20px;
+}
+
+.example-tab-icon {
+  margin-right: 8px;
+}
