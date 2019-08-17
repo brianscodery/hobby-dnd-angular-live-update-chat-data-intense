@@ -16,13 +16,11 @@ export class SVGDieComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.available);
     const usedText = `expended d${ this.die }
     (One expended hit die is replenished with each long rest)`;
     const availableText = `available d${ this.die }
     (Double click to use it)`;
     this.matTooltip = this.available ? availableText : usedText;
-    console.log(this.matTooltip);
     this.setWidthAndHeight();
   }
 

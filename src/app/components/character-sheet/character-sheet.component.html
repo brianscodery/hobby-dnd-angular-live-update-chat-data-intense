@@ -141,7 +141,7 @@
 
   <mat-grid-tile colspan="2"
                  rowspan="3">
-   
+
     <div
          style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid darkgray; border-radius: 4px; padding: 2px;">
       <div style="width: 100%;text-decoration: underline; font-size: .75em; text-align: center;">
@@ -174,7 +174,7 @@
     </div>
 
   </mat-grid-tile>
-  
+
   <mat-grid-tile colspan="3"
                  rowspan="2">
     <div>
@@ -227,7 +227,6 @@
                  style="border: 1px solid white; overflow: scroll;">
     <div style="height: 100%; width: 100%;"
          fxLayout="column wrap"
-         
          fxLayoutAlign="space-around space-around">
       <div *ngFor="let die of character.collectedDice.availableDice">
         <app-svgdie [die]="die"
@@ -244,40 +243,39 @@
     </div>
   </mat-grid-tile>
   <mat-grid-tile colspan="2"
-                 rowspan="8"
-                 >
-    
-      <div
-           style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid darkgray; border-radius: 4px; padding: 2px;">
-        <div style="width: 100%;text-decoration: underline; font-size: .75em; text-align: center;">
-          Skill Modifiers
-        </div>
-    
-        <mat-selection-list #skillModifiers
-                            dense
-                            style="width: 100%;">
-          <div>
-            <mat-list-option checkboxPosition="before"
-                             *ngFor="let skill of skillsInOrder"
-                             [selected]="character.proficiencies.skills.includes(skill)"
-                             style="height: 20px; width: 100%">
-              <div style="width: 100%; display: flex; justify-content: space-between;">
-                <div style="width: 30%; text-decoration: underline;">
-    
-                  &nbsp;{{character.skillModifiers[skill]  | modifier}}&nbsp;
-                </div>
-                <div style="width: 70%; text-align: left; white-space: nowrap;">
-    
-    
-                  {{skill | uncamelcase | titlecase}}
-                </div>
-              </div>
-    
-            </mat-list-option>
-          </div>
-        </mat-selection-list>
+                 rowspan="8">
+
+    <div
+         style="width: 100%; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid darkgray; border-radius: 4px; padding: 2px;">
+      <div style="width: 100%;text-decoration: underline; font-size: .75em; text-align: center;">
+        Skill Modifiers
       </div>
-    
+
+      <mat-selection-list #skillModifiers
+                          dense
+                          style="width: 100%;">
+        <div>
+          <mat-list-option checkboxPosition="before"
+                           *ngFor="let skill of skillsInOrder"
+                           [selected]="character.proficiencies.skills.includes(skill)"
+                           style="height: 20px; width: 100%">
+            <div style="width: 100%; display: flex; justify-content: space-between;">
+              <div style="width: 30%; text-decoration: underline;">
+
+                &nbsp;{{character.skillModifiers[skill] | modifier}}&nbsp;
+              </div>
+              <div style="width: 70%; text-align: left; white-space: nowrap;">
+
+
+                {{skill | uncamelcase | titlecase}}
+              </div>
+            </div>
+
+          </mat-list-option>
+        </div>
+      </mat-selection-list>
+    </div>
+
   </mat-grid-tile>
   <mat-grid-tile colspan="3"
                  rowspan="2"
@@ -323,24 +321,70 @@
   <mat-grid-tile colspan="3"
                  rowspan="5"
                  style="border: 1px solid white;">
-    Attacks
+    <form style="width: 100%"
+    class="example-form"
+          fxLayout="column"
+          fxLayoutAlign="start">
+      <ng-container *ngFor="let weapon of character.weapons; let i = index;">
+        <div class="weapon-row" fxLayout fxLayoutAlign="space-around">
+
+          <mat-form-field class="weapon-name">
+            <input matInput
+                   [placeholder]="i === 0 ? 'Weapon' : ''"
+                   [value]="weapon.name">
+          </mat-form-field>
+
+          <mat-form-field class="weapon-attack-bonus">
+            <input matInput
+                   [placeholder]="i === 0 ? 'Atk Bonus' : ''"
+                   [value]="weapon.attackBonus | modifier">
+          </mat-form-field>
+
+            <mat-form-field class="weapon-damage-type">
+              <input matInput
+                     [placeholder]="i === 0 ? 'Damage / Type' : ''"
+                     [value]="weapon.dieAndDamage[weapon.currentNumberOfHands]">
+                      <button mat-button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="change # of hands"
+                              (click)="toggleNumberOfHands(weapon)">
+                      <mat-icon *ngIf="weapon.currentNumberOfHands==='oneHanded'; else twoHanded"
+                                
+                               >thumb_up</mat-icon>
+                      </button>
+                        
+                        <ng-template #twoHanded>
+                          <mat-icon                                     
+                            >thumbs_up_down</mat-icon>
+                        </ng-template>
+                        
+                       
+            </mat-form-field>
+
+        </div>
+      </ng-container>
+    </form>
   </mat-grid-tile>
 
 
-  
+
   <mat-grid-tile colspan="3"
                  rowspan="6"
                  style="border: 1px solid white;">
     Spells
   </mat-grid-tile>
-<mat-grid-tile colspan="3"
-               rowspan="1"
-               >
-  <div  style="width: 100%; height: 100%;">
-  <div style="position: absolute; top: 4px;  width: 33px; height: 33px;border: 1px solid red; border-radius: 15%; z-index: 1; background-color: #303030; vertical-align: middle; line-height: 33px;" >{{character.abilityScores.wisdom.passiveScore}}</div>
-  <div style="position: absolute; right: 0px;width: calc(100% - 30px); height: 40px; border: 1px solid red; border-radius: 15%; z-index: 0; vertical-align: middle; line-height: 40px;"[matTooltip]="passiveScores" [matTooltipClass]="'my-tooltip'">Passive Wisdom (Perception)</div>
-  </div>
-</mat-grid-tile>
+  <mat-grid-tile colspan="3"
+                 rowspan="1">
+    <div style="width: 100%; height: 100%;">
+      <div
+           style="position: absolute; top: 4px;  width: 33px; height: 33px;border: 1px solid red; border-radius: 15%; z-index: 1; background-color: #303030; vertical-align: middle; line-height: 33px;">
+        {{character.abilityScores.wisdom.passiveScore}}</div>
+      <div style="position: absolute; right: 0px;width: calc(100% - 30px); height: 40px; border: 1px solid red; border-radius: 15%; z-index: 0; vertical-align: middle; line-height: 40px;"
+           [matTooltip]="passiveScores"
+           [matTooltipClass]="'my-tooltip'">Passive Wisdom (Perception)</div>
+    </div>
+  </mat-grid-tile>
   <mat-grid-tile colspan="3"
                  rowspan="6"
                  style="border: 1px solid darkgray; border-radius: 4px;">

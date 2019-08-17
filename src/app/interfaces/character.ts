@@ -230,8 +230,11 @@ export interface Character {
   savingThrows: SavingThrows;
   collectedDice?: CollectedDice;
   skillModifiers?: SkillModifiers;
-  weapons: Weapon[];
+  weaponList: string[];
+  weapons?: Weapon[];
   size: Size;
+  wearingArmour?: boolean;
+  usingShield?: boolean;
 }
 export type WeaponRange = 'melee' | 'ranged';
 export type WeaponCategory = 'simple' | 'martial';
@@ -262,6 +265,10 @@ export class Weapon {
   silvered?: boolean;
   monk?: boolean;
   magicalBonus?: number;
+  dieAndDamage?: DieAndDamage;
+  currentNumberOfHands?: Handedness;
+  versatileDamageDie?: number;
+  attackBonus?: number;
   constructor (
     name: string,
     range: WeaponRange,
@@ -292,6 +299,11 @@ export class Weapon {
   }
 }
 
+export class DieAndDamage {
+  oneHanded: string;
+  twoHanded: string;
+}
+export type handedness = 'oneHanded' | 'twoHanded';
 
 export type Size =
   | 'fine'
@@ -387,12 +399,12 @@ export interface ArmourClass {
 }
 
 export interface Spell {
-  castingTime: CastingTime;
+  castingTime: Time;
   classes: Class[];
   components: MagicComponent[];
   concentration: boolean;
   description: string[];
-  duration: Duration;
+  duration: Time | 'until dispelled';
   level: SpellLevel;
   name: string;
   page: string;
@@ -402,3 +414,31 @@ export interface Spell {
 }
 
 export type MagicComponent = 'verbal' | 'somatic' | 'material';
+
+export interface Time {
+  quantity: number;
+  denomination: TimeUnit;
+}
+export type SpellLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export type TimeUnit =
+  | 'action'
+  | 'reaction'
+  | 'second'
+  | 'minute'
+  | 'hour'
+  | 'day'
+  | 'week'
+  | 'month'
+  | 'year'
+  | 'instantaneous';
+
+export type MagicSchool =
+  | 'abjuration'
+  | 'conjuration'
+  | 'divination'
+  | 'enchantment'
+  | 'evocation'
+  | 'illusion'
+  | 'necromancy'
+  | 'transmutation';

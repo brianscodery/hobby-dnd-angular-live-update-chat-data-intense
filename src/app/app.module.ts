@@ -19,7 +19,6 @@ import { ModifierPipe } from './pipes/modifier.pipe';
 import { SVGDieComponent } from './components/svgdie/svgdie.component';
 import { UnCamelCasePipe } from './pipes/un-camel-case.pipe';
 import { DiePipe } from './pipes/die.pipe';
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,14 +1,13 @@
 import { WeaponService } from './../../services/weapon.service';
 import { DnDMathService } from './../../services/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Character, AbilityScores, Ability, HitDie, SavingThrows, ABILITIES_IN_ORDER, TREASURES_IN_ORDER, SKILLS_IN_ORDER } from './../../interfaces/character';
+import { Character, AbilityScores, Ability, HitDie, SavingThrows, ABILITIES_IN_ORDER, TREASURES_IN_ORDER, SKILLS_IN_ORDER, Weapon } from './../../interfaces/character';
 
-
-@Component({
+@Component( {
   selector: 'app-character-sheet',
   templateUrl: './character-sheet.component.html',
   styleUrls: [ './character-sheet.component.scss' ],
-})
+} )
 export class CharacterSheetComponent implements OnInit {
   // tslint:disable-next-line: variable-name
   @Input() character: Character;
@@ -20,8 +19,7 @@ export class CharacterSheetComponent implements OnInit {
   classPlaceholder: string;
   levelPlaceholder: string;
   passiveScores: string;
-
-  constructor(private dndMathService: DnDMathService, private weaponService: WeaponService) { }
+  constructor ( private dndMathService: DnDMathService, private weaponService: WeaponService ) { }
 
   ngOnInit() {
 
@@ -29,23 +27,30 @@ export class CharacterSheetComponent implements OnInit {
 
     this.disabled = false;
     this.multipleClasses = this.character.classes.length > 1 ? true : false;
-    this.passiveScores = `Passive Strength: ${ this.character.abilityScores.strength.passiveScore }
-Passive Dexterity: ${this.character.abilityScores.dexterity.passiveScore }
-Passive Intelligence: ${this.character.abilityScores.intelligence.passiveScore }
-Passive Charisma: ${this.character.abilityScores.charisma.passiveScore }
-Passive Constitution: ${this.character.abilityScores.constitution.passiveScore }
-Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
+    this.passiveScores = this.getPassiveScores();
   }
 
-  // getPath(die: HitDice): string {
-  //   return `../../../assets/images/d${die.die}.svg`;
-  // }
 
-  getArray(size: number) {
+  getArray( size: number ) {
     const arr = [];
     arr.length = size;
     return arr;
   }
 
+  getPassiveScores(): string {
+    const passiveScoresText =
+    `Passive Strength: ${ this.character.abilityScores.strength.passiveScore }
+Passive Dexterity: ${this.character.abilityScores.dexterity.passiveScore }
+Passive Intelligence: ${this.character.abilityScores.intelligence.passiveScore }
+Passive Charisma: ${this.character.abilityScores.charisma.passiveScore }
+Passive Constitution: ${this.character.abilityScores.constitution.passiveScore }
+Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
+    return passiveScoresText;
+  }
+
+  toggleNumberOfHands( weapon: Weapon ) {
+    console.log( weapon.currentNumberOfHands );
+    weapon.currentNumberOfHands = weapon.currentNumberOfHands === 'oneHanded' ? 'twoHanded' : 'oneHanded';
+}
 
 }
