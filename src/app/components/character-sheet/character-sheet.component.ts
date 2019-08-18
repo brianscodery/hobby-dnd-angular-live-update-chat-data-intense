@@ -13,7 +13,6 @@ import {
   Weapon } from './../../interfaces/character';
 
 
-
 @Component( {
   selector: 'app-character-sheet',
   templateUrl: './character-sheet.component.html',
@@ -30,6 +29,8 @@ export class CharacterSheetComponent implements OnInit {
   classPlaceholder: string;
   levelPlaceholder: string;
   passiveScores: string;
+  step = 0;
+
   constructor ( private dndMathService: DnDMathService, private weaponService: WeaponService ) { }
 
   ngOnInit() {
@@ -65,4 +66,16 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
 
  
 
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
 }
+

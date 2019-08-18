@@ -18,7 +18,7 @@ export class WeaponService {
   addWeaponsToDB() {
     for ( let i = 1; i <= 37; i++ ) {
       this.http
-        .get<any[]>( 'http://www.dnd5eapi.co/api/equipment/' + i )
+        .get<Weapon>( 'http://www.dnd5eapi.co/api/equipment/' + i )
         .subscribe( weapon => {
           const properties: WeaponProperty[] = [];
           this.getWeaponProperties( weapon, properties );

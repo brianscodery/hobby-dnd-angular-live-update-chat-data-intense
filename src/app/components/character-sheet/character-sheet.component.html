@@ -128,11 +128,59 @@
     </mat-form-field>
   </mat-grid-tile>
 
+
+
+
+
+
+
+
+
+
   <mat-grid-tile colspan="3"
                  rowspan="12"
-                 style="border: 1px solid white;">
-    Features & Traits
-  </mat-grid-tile>
+                 style="border: 1px solid white;" >
+                 <div style="width:100%; height: 100%; overflow: scroll">
+
+                  <h5>Features & Traits</h5>
+                   <mat-accordion class="example-headers-align" >
+                     <mat-expansion-panel *ngFor="let trait of character.traits; let i = index;" [expanded]="step === i"
+                     (opened)="setStep(i)"
+                     hideToggle>
+                     <mat-expansion-panel-header>
+                       <mat-panel-title>
+                        <strong>
+                          {{trait.name | titlecase}}
+                        </strong> 
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          {{trait.blurb | titlecase}}
+                          <!-- <mat-icon>account_circle</mat-icon> -->
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <!-- <h5>Granted by: {{trait.from | titlecase}}</!--> 
+                      <p class="feature-trait-paragraph" *ngFor="let paragraph of trait.descriptionParagraphs" style="text-align: justify">{{paragraph}}</p>
+                      
+                      
+                    </mat-expansion-panel>
+                    
+                    
+                  </mat-accordion>
+                </div>
+                </mat-grid-tile>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <mat-grid-tile colspan="2"
                  rowspan="1">
@@ -330,19 +378,19 @@
 
           <mat-form-field class="weapon-name">
             <input matInput
-                   [placeholder]="i === 0 ? 'Weapon' : ''"
-                   [value]="weapon.name">
+                   [placeholder]="i === 0 ? 'WEAPON' : ''"
+                   [value]="weapon.name | titlecase">
           </mat-form-field>
 
           <mat-form-field class="weapon-attack-bonus">
             <input matInput
-                   [placeholder]="i === 0 ? 'Atk Bonus' : ''"
+                   [placeholder]="i === 0 ? 'ATK BONUS' : ''"
                    [value]="weapon.attackBonus | modifier">
           </mat-form-field>
 
             <mat-form-field class="weapon-damage-type">
               <input matInput
-                     [placeholder]="i === 0 ? 'Damage / Type' : ''"
+                     [placeholder]="i === 0 ? 'DAMAGE / TYPE' : ''"
                      [value]="weapon.dieAndDamage[weapon.currentNumberOfHands]">
                       <button mat-button
                               matSuffix

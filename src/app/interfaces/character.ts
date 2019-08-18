@@ -236,7 +236,29 @@ export interface Character {
   size: Size;
   wearingArmour?: boolean;
   usingShield?: boolean;
+  traits?: CharacterTrait[];
 }
+export interface CharacterTrait {
+  name: string;
+  descriptionParagraphs: string[];
+  blurb?: string;
+  from: TraitSource;
+}
+
+export type TraitSource= Class | Race | any;
+
+export type Race =
+  | 'Dragonborn'
+  | 'Dwarf'
+  | 'Eladrin'
+  | 'Elf'
+  | 'Gnome'
+  | 'Half - elf'
+  | 'Half - orc'
+  | 'Tiefling'
+  | 'Halfling'
+  | 'Human';
+
 export type WeaponRange = 'melee' | 'ranged';
 export type WeaponCategory = 'simple' | 'martial';
 
