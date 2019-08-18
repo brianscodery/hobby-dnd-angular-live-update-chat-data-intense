@@ -199,6 +199,7 @@ export interface EquipmentItem {
 export interface Proficiencies {
   skills: Skill[];
   savingThrows: Ability[];
+  list?: string[];
 }
 
 export interface CollectedDice {

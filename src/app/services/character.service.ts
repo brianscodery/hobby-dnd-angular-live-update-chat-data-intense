@@ -189,11 +189,9 @@ export class CharacterService {
     const damageType = weapon.damageType[ 0 ].toUpperCase() + weapon.damageType.slice( 1 );
     weapon.dieAndDamage = new DieAndDamage();
     weapon.dieAndDamage.oneHanded = `${ dieText } ${ modifierText } ${ damageType }`;
-    if ( weapon.versatile ) {
-      const versatileDieText = `1d${ weapon.versatileDamageDie }`;
+    const versatileDieText = weapon.versatile ? `1d${ weapon.versatileDamageDie }` : dieText;
       weapon.dieAndDamage.twoHanded = `${ versatileDieText } ${ modifierText } ${ damageType }`;
     }
   }
 
 
-}

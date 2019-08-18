@@ -1,7 +1,18 @@
 import { WeaponService } from './../../services/weapon.service';
 import { DnDMathService } from './../../services/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Character, AbilityScores, Ability, HitDie, SavingThrows, ABILITIES_IN_ORDER, TREASURES_IN_ORDER, SKILLS_IN_ORDER, Weapon } from './../../interfaces/character';
+import {
+  Character,
+  AbilityScores,
+  Ability, 
+  HitDie, 
+  SavingThrows,
+  ABILITIES_IN_ORDER,
+  TREASURES_IN_ORDER, 
+  SKILLS_IN_ORDER,
+  Weapon } from './../../interfaces/character';
+
+
 
 @Component( {
   selector: 'app-character-sheet',
@@ -49,8 +60,9 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
   }
 
   toggleNumberOfHands( weapon: Weapon ) {
-    console.log( weapon.currentNumberOfHands );
     weapon.currentNumberOfHands = weapon.currentNumberOfHands === 'oneHanded' ? 'twoHanded' : 'oneHanded';
 }
+
+ 
 
 }

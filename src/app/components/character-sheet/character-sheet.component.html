@@ -355,7 +355,7 @@
                       </button>
                         
                         <ng-template #twoHanded>
-                          <mat-icon                                     
+                          <mat-icon                                     inline
                             >thumbs_up_down</mat-icon>
                         </ng-template>
                         
@@ -414,9 +414,29 @@
   <mat-grid-tile colspan="3"
                  rowspan="5"
                  style="border: 1px solid white;">
-    Proficiencies
-  </mat-grid-tile>
+                 <div fxLayout="column" fxLayoutAlign="start start" style="height: 100%; width: 100%; padding: 0 10px;">
 
+    <p style="text-align: left;"> 
+      <strong>
+        Proficiencies:
+      </strong>
+      <span *ngFor="let proficiency of character.proficiencies.list; let isLast = last;"
+            style="font-size: .75rem;">{{proficiency | titlecase}}<span *ngIf="!isLast">,&nbsp;</span>
+      </span>
+    </p>
+    <p style="text-align: left;">
+      <strong>
+        Languages:
+      </strong>
+      <span *ngFor="let language of character.languages; let isLast = last" style="font-size: .75rem;">
+        
+            {{language | titlecase}}<span *ngIf="!isLast">,&nbsp;</span>
+            
+       </span>
+    </p>
+  </div>
+  </mat-grid-tile>
+  
   <mat-grid-tile colspan="9"
                  rowspan="8">
     <form class="example-form">
