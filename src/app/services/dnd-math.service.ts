@@ -8,10 +8,10 @@ import {
   Skill,
   AbilityScore,
   ClassLevel,
-  ProficiencyBonusOption
+  ProficiencyBonusOption,
+  SpellLevel
 } from './../interfaces/character';
 import { Injectable } from '@angular/core';
-import find from 'lodash-es/find';
 import forEach from 'lodash-es/forEach';
 import cloneDeep from 'lodash-es/cloneDeep';
 
@@ -85,9 +85,8 @@ export class DnDMathService {
     return multiClassLevel;
   }
 
-  public getMultiClassSpellSlots( multiClassSpellLevel: number ): number[] {
-    const multiClassSpellSlots: number[] = [];
-    multiClassSpellSlots.length = 10;
+  public getMultiClassSpellSlots( multiClassSpellLevel: number ): SpellLevel[] {
+    const multiClassSpellSlots: number[] = [0,0,0,0,0,0,0,0,0];
     switch ( true ) {
       case multiClassSpellLevel === 1:
         multiClassSpellSlots[ 1 ] = 2;
@@ -129,8 +128,10 @@ export class DnDMathService {
         multiClassSpellSlots[ 6 ] = 2;
       case multiClassSpellLevel === 20:
         multiClassSpellSlots[ 7 ] = 2;
-    }
-    return multiClassSpellSlots;
+      default:
+        break;
+      }
+      return multiClassSpellSlots;
   }
 
   public getProficienctBonus( character: Character ): ProficiencyBonusOption {

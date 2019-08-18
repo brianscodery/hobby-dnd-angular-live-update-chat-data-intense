@@ -168,6 +168,15 @@ export class CharacterService {
             } );
           return characters;
         } ),
+
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              character.multiClassSpellSlots = this.dndMathService.getMultiClassSpellSlots(this.dndMathService.getMultiClassSpellLevel(character));
+              console.log( character.multiClassSpellSlots );
+            } );
+          return characters;
+        } ),
       );
   }
 

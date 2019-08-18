@@ -135,18 +135,18 @@ export const SKILLS_IN_ORDER = [
 ];
 
 export type Class =
-  | 'Barbarian'
-  | 'Bard'
-  | 'Cleric'
-  | 'Druid'
-  | 'Fighter'
-  | 'Monk'
-  | 'Paladin'
-  | 'Ranger'
-  | 'Rogue'
-  | 'Sorcerer'
-  | 'Warlock'
-  | 'Wizard';
+  | 'barbarian'
+  | 'bard'
+  | 'cleric'
+  | 'druid'
+  | 'fighter'
+  | 'monk'
+  | 'paladin'
+  | 'ranger'
+  | 'rogue'
+  | 'sorcerer'
+  | 'warlock'
+  | 'wizard';
 
 export type Ability =
   | 'strength'
@@ -237,6 +237,7 @@ export interface Character {
   wearingArmour?: boolean;
   usingShield?: boolean;
   traits?: CharacterTrait[];
+  multiClassSpellSlots?: SpellLevel[];
 }
 export interface CharacterTrait {
   name: string;
@@ -248,16 +249,16 @@ export interface CharacterTrait {
 export type TraitSource= Class | Race | any;
 export type ProficiencyBonusOption = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type Race =
-  | 'Dragonborn'
-  | 'Dwarf'
-  | 'Eladrin'
-  | 'Elf'
-  | 'Gnome'
-  | 'Half - elf'
-  | 'Half - orc'
-  | 'Tiefling'
-  | 'Halfling'
-  | 'Human';
+  | 'dragonborn'
+  | 'dwarf'
+  | 'eladrin'
+  | 'elf'
+  | 'gnome'
+  | 'halfElf'
+  | 'halfOrc'
+  | 'tiefling'
+  | 'halfling'
+  | 'human';
 
 export type WeaponRange = 'melee' | 'ranged';
 export type WeaponCategory = 'simple' | 'martial';
