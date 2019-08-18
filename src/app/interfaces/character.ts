@@ -173,7 +173,7 @@ export interface HitPoints {
   temp: number;
 }
 
-export type DieNumber = 4 | 6 | 8 | 10 | 12;
+export type DieNumber = 4 | 6 | 8 | 10 | 12 | 20;
 
 export interface HitDie {
   die: DieNumber;
@@ -227,7 +227,7 @@ export interface Character {
   hitDice: HitDie[];
   treasures: Treasures;
   equipment: EquipmentItem[];
-  proficiencyBonus: 1 | 2 | 3 | 4 | 5;
+  proficiencyBonus: ProficiencyBonusOption;
   savingThrows: SavingThrows;
   collectedDice?: CollectedDice;
   skillModifiers?: SkillModifiers;
@@ -246,7 +246,7 @@ export interface CharacterTrait {
 }
 
 export type TraitSource= Class | Race | any;
-
+export type ProficiencyBonusOption = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type Race =
   | 'Dragonborn'
   | 'Dwarf'

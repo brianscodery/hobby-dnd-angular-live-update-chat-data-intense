@@ -159,7 +159,15 @@ export class CharacterService {
               this.generateWeaponsDetails( character );
             } );
           return characters;
-        } )
+        } ),
+       
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              character.proficiencyBonus = this.dndMathService.getProficienctBonus( character );
+            } );
+          return characters;
+        } ),
       );
   }
 
