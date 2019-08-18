@@ -68,7 +68,7 @@
 
         <mat-form-field class="class-row">
           <input matInput
-                 value="n: n &#8712; N">
+                 value="{ n: n &#8712; N }">
           <mat-hint>XP</mat-hint>
 
         </mat-form-field>
@@ -138,7 +138,7 @@
 
 
   <mat-grid-tile colspan="3"
-                 rowspan="12"
+                 rowspan="15"
                  style="border: 1px solid white;" >
                  <div style="width:100%; height: 100%; overflow: scroll">
 
@@ -149,7 +149,7 @@
                      hideToggle>
                      <mat-expansion-panel-header>
                        <mat-panel-title>
-                        <strong>
+                        <strong style="text-decoration: underline;">
                           {{trait.name | titlecase}}
                         </strong> 
                         </mat-panel-title>
@@ -223,28 +223,16 @@
 
   </mat-grid-tile>
 
-  <mat-grid-tile colspan="3"
+  <mat-grid-tile *ngIf="character.hitPoints.current > 0 || character.hitPoints.temp > 0; else deathSaves" colspan="3"
                  rowspan="2">
     <div>
 
-      <div>
+      <h5 style="margin: 0;">
 
         Hit Points
-      </div>
+      </h5>
       <div
            style="width: 100%; display: flex; flex-direction: row; align-items: center; justify-items: space-between;">
-        <div>
-
-          <mat-form-field style="width: 50px;">
-            <input matInput
-                   [value]="character.hitPoints.temp"
-                   style="width: 50px;">
-            <mat-hint>Temp</mat-hint>
-          </mat-form-field>
-        </div>
-        <div>
-          &nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;
-        </div>
         <div>
 
           <mat-form-field style="width: 50px;">
@@ -254,6 +242,19 @@
             <mat-hint>Current</mat-hint>
           </mat-form-field>
         </div>
+        <div>
+          &nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;
+        </div>
+              <div>
+              
+                <mat-form-field style="width: 50px;">
+                  <input matInput
+                         [value]="character.hitPoints.temp"
+                         style="width: 50px;">
+                  <mat-hint>Temp</mat-hint>
+                </mat-form-field>
+              </div>
+ 
         <div>
           &nbsp;&nbsp;&nbsp;of&nbsp;&nbsp;&nbsp;
         </div>
@@ -269,6 +270,53 @@
       </div>
     </div>
   </mat-grid-tile>
+
+<ng-template #deathSaves>
+  <mat-grid-tile colspan="3"
+                   rowspan="2"
+                   style="border: 1px solid white;">
+      <div
+           style="width: 100%; height: 100%; display: flex; justify-content: space-evenly; overflow: scroll;">
+        <div
+             style="width: 40%; height: 100%; display: flex; flex-direction: column; justify-content:flex-end;">
+  
+          <mat-slider class="my-slider"
+                      max="3"
+                      min="0"
+                      step="1"
+                      thumbLabel
+                      tickInterval="1"
+                      [(ngModel)]="hello"
+                      color="accent"
+                      style="height: 20px;">
+          </mat-slider>
+          <h6>Death Successes</h6>
+        </div>
+        <div
+             style="width: 40%; height: 100%; display: flex; flex-direction: column; justify-content:flex-end;">
+  
+  
+          <mat-slider class="my-slider"
+                      max="3"
+                      min="0"
+                      step="1"
+                      thumbLabel
+                      tickInterval="1"
+                      [(ngModel)]="hello2"
+                      color="warn"
+                      style="height: 20px;">
+          </mat-slider>
+          <h6>Death Failures</h6>
+  
+        </div>
+      </div>
+    </mat-grid-tile>
+</ng-template>
+
+
+
+
+
 
   <mat-grid-tile colspan="3"
                  rowspan="2"
@@ -325,49 +373,11 @@
     </div>
 
   </mat-grid-tile>
-  <mat-grid-tile colspan="3"
-                 rowspan="2"
-                 style="border: 1px solid white;">
-    <div
-         style="width: 100%; height: 100%; display: flex; justify-content: space-evenly; overflow: scroll;">
-      <div
-           style="width: 40%; height: 100%; display: flex; flex-direction: column; justify-content:flex-end;">
-
-        <mat-slider class="my-slider"
-                    max="3"
-                    min="0"
-                    step="1"
-                    thumbLabel
-                    tickInterval="1"
-                    [(ngModel)]="hello"
-                    color="accent"
-                    style="height: 20px;">
-        </mat-slider>
-        <h6>Death Successes</h6>
-      </div>
-      <div
-           style="width: 40%; height: 100%; display: flex; flex-direction: column; justify-content:flex-end;">
-
-
-        <mat-slider class="my-slider"
-                    max="3"
-                    min="0"
-                    step="1"
-                    thumbLabel
-                    tickInterval="1"
-                    [(ngModel)]="hello2"
-                    color="warn"
-                    style="height: 20px;">
-        </mat-slider>
-        <h6>Death Failures</h6>
-
-      </div>
-    </div>
-  </mat-grid-tile>
+  
 
 
   <mat-grid-tile colspan="3"
-                 rowspan="5"
+                 rowspan="4"
                  style="border: 1px solid white;">
     <form style="width: 100%"
     class="example-form"
@@ -414,14 +424,13 @@
       </ng-container>
     </form>
   </mat-grid-tile>
+<mat-grid-tile colspan="3"
+               rowspan="10"
+               style="border: 1px solid white;">
+               Spells
+</mat-grid-tile>
 
-
-
-  <mat-grid-tile colspan="3"
-                 rowspan="6"
-                 style="border: 1px solid white;">
-    Spells
-  </mat-grid-tile>
+  
   <mat-grid-tile colspan="3"
                  rowspan="1">
     <div style="width: 100%; height: 100%;">
@@ -487,7 +496,7 @@
   
   <mat-grid-tile colspan="9"
                  rowspan="8">
-    <form class="example-form">
+    <form class="example-form-2">
       <mat-form-field class="example-full-width">
         <textarea matInput
                   placeholder="Personality Traits"></textarea>
