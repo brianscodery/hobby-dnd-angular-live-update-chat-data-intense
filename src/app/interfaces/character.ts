@@ -166,6 +166,7 @@ export type Level = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 |
 export interface ClassLevel {
   class: Class;
   level: Level;
+  spellsKnown?: SpellLevel[];
 }
 export interface HitPoints {
   current: number;
@@ -220,8 +221,7 @@ export interface Character {
   generalStatus: GeneralStatus;
   classes: ClassLevel[];
   race: string;
-  background: string;
-  alignment: string;
+  background: Background;
   speed: number;
   armourClass: number;
   hitDice: HitDie[];
@@ -238,6 +238,13 @@ export interface Character {
   usingShield?: boolean;
   traits?: CharacterTrait[];
   multiClassSpellSlots?: SpellLevel[];
+  spellsKnown?: SpellLevel[];
+  spellsPerDay?: SpellLevel[];
+  alignment: Alignment;
+}
+export interface Alignment {
+  lawfulness: 'lawful' | 'neutral' | 'chaotic';
+  goodness: 'good' | 'neutral' | 'evil';
 }
 export interface CharacterTrait {
   name: string;
@@ -245,8 +252,24 @@ export interface CharacterTrait {
   blurb?: string;
   from: TraitSource;
 }
+export interface Background {
+  name: string;
+  description: string;
+  proficiencyList?: ProficiencyList;
+  equipment: string[];
+  features?: string[];
+  traits?: { name?: string, description: string }[];
+  ideals?: { name?: string, description: string }[];
+  bonds?: { name?: string, description: string }[];
+  flaws?: { name?: string, description: string }[];
+}
 
-export type TraitSource= Class | Race | any;
+export interface ProficiencyList {
+  skills?: Skill[];
+  tools?: string[];
+  languages?: Language[];
+}
+export type TraitSource = Class | Race | any;
 export type ProficiencyBonusOption = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type Race =
   | 'dragonborn'
@@ -327,7 +350,7 @@ export class DieAndDamage {
   oneHanded: string;
   twoHanded: string;
 }
-export type handedness = 'oneHanded' | 'twoHanded';
+export type Handedness = 'oneHanded' | 'twoHanded';
 
 export type Size =
   | 'fine'

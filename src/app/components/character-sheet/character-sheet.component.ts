@@ -30,11 +30,12 @@ export class CharacterSheetComponent implements OnInit {
   levelPlaceholder: string;
   passiveScores: string;
   step = 0;
+  flawsText = '';
 
   constructor ( private dndMathService: DnDMathService, private weaponService: WeaponService ) { }
 
   ngOnInit() {
-
+    this.character.background.flaws.forEach(flaw=>this.flawsText += flaw.description + '\n');
 
 
     this.disabled = false;
