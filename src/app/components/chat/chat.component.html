@@ -1,8 +1,75 @@
-<ng-container *ngIf="messages$ | async as messages">
-  <ol>
-    <li *ngFor="let message of messages">
-      {{message.from}}: {{message.content}}
-    </li>
-  </ol>
-  <input (change)="addMessage($event)">
-</ng-container>
+<div
+  *ngIf="messages$ | async as messages"
+  fxLayout="row" 
+  fxLayoutAlign="center start"
+  style="width: 100%;"
+  >
+  <mat-card>
+    <div #oneLine (window:resize)="width=oneLine.getBoundingClientRect().width">
+    <mat-card-header fxLayout="row"  fxLayoutAlign="space-between center"   [style.width.px]="width - 50"
+  class="text-oneline">
+      
+    <mat-card-title fxLayout="row" fxLayoutAlign="center center ">
+      <img src="../../../assets/images/dnd letters logo.png"
+           alt="D&D logo" style="height: 25px;"> 
+           <span style="color: rgb(227,0,30); font-size: 1.8rem; font-weight: bold; font-family: 'Marcellus SC', serif;">
+             &nbsp;Chat
+           </span>
+             
+    </mat-card-title>
+
+  
+  <mat-card-subtitle 
+
+  style="color: rgb(227,0,30); font-family: 'Marcellus SC', serif;"
+  >
+  
+      A simple medieval chat client
+    </mat-card-subtitle>
+    <div style="width: 100%;" class="participants" fxLayout="row wrap" fxLayoutAlign="end center">
+      <div class="example-header-image"></div>
+      <div class="example-header-image"></div>
+      <div class="example-header-image"></div>
+      <div class="example-header-image"></div>
+      <div class="example-header-image"></div>
+      <div class="example-header-image"></div>
+  
+        </div>
+      </mat-card-header>
+    </div>
+<hr>
+  <div  class="container" #scrollMe fxLayout="column">
+    <ng-container *ngFor="let message of messages; index as i;">
+
+        <div 
+        *ngIf="i===0 || !isSameDay(messages[i-1].date, message.date)"
+        class="date">
+        {{message.date|date:'fullDate'}}
+      </div>
+     
+      <div *ngIf="message.from !== character.name"
+      class="sender-name">
+        {{message.from}}
+      </div>
+      <div
+           [ngClass]="{'first-person': character.name===message.from, 'third-person': character.name !== message.from}">
+           {{message.content}}
+      </div>
+      <div
+            class="timestamp"
+            [ngClass]="{'first-person-timestamp': character.name===message.from, 'third-person-timestamp': character.name !== message.from}">
+            {{message.date | date:'shortTime'}}
+      </div>
+    </ng-container>
+  </div>
+<hr>
+    <mat-form-field color="warn">
+
+      <input #messageInput matInput (keydown)="addMessage($event)" [placeholder]="'Go for ' + character.name">
+      <button style="height: 1.8rem; width: 1.8rem;" mat-mini-fab isIconButton
+              color="primary" matSuffix [disabled]="!messageInput.value" (click)="addMessage()">
+              <mat-icon style="position: relative; bottom: .4rem;">arrow_upward</mat-icon>
+            </button>
+    </mat-form-field>
+  </mat-card>
+</div>

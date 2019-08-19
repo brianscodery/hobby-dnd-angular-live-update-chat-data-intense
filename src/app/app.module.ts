@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './modules/material.module';
@@ -47,6 +47,7 @@ import { ChatComponent } from './components/chat/chat.component';
     FirebaseModule,
     FormsModule,
     NgxAuthFirebaseUIModule.forRoot( environment.firebase  ),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

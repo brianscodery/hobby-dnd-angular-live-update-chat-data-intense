@@ -18,7 +18,8 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule,
 
 } from '@angular/material';
 
@@ -43,7 +44,9 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
+
   ],
   exports: [
     MatBadgeModule,
@@ -63,7 +66,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule,
 
   ],
 } )

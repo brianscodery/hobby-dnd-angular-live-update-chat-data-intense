@@ -1,6 +1,6 @@
 import { Character } from './../interfaces/character';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { firestore } from 'firebase';
 import Timestamp = firestore.Timestamp;
@@ -10,6 +10,7 @@ export interface Message {
   from: string;
   content: string;
   timestamp: Timestamp;
+  date?: Date;
 }
 
 @Injectable( {
@@ -17,7 +18,9 @@ export interface Message {
 } )
 export class ChatService {
 
-  constructor ( public afs: AngularFirestore ) { }
+  constructor ( public afs: AngularFirestore ) { 
+    this.deleteBlankMessages( [ { name: 'tonitrus' }, { name: 'js' } ] );
+  }
 
   getChatMessages( characters: Character[] ): Observable<Message[]> {
     const chatGroupName = this.getChatGroupName( characters );
@@ -34,6 +37,10 @@ export class ChatService {
           if ( timeA < timeB ) { return -1 };
           return 0;
         } );
+          messages.map( message => {
+            message.date = message.timestamp.toDate();
+            return message;
+        })  
         return messages;
       }
     ));
@@ -50,12 +57,26 @@ export class ChatService {
     return tempNames.join( '_' );
   }
 
-  addMessage( chatMembers: Character[], content: string, timestamp: firestore.Timestamp, from: string ) {
+  addMessage( chatMembers: Character[], content: string, timestamp: firestore.Timestamp, from: string ): Promise<DocumentReference> {
     const chatGroupName = this.getChatGroupName( chatMembers );
-    this.afs.collection( 'chats' )
+    return this.afs.collection( 'chats' )
       .doc( chatGroupName )
       .collection<Message>( 'messages' )
-      .add( {from, content, timestamp} );
-}
+      .add( { from, content, timestamp } );
+  }
+
+  deleteBlankMessages( chatMembers: Character[] ) {
+    const chatGroupName = this.getChatGroupName( chatMembers );
+    const messagesRef = this.afs
+      .collection( 'chats' )
+      .doc( chatGroupName )
+      .collection<Message>( 'messages', ref =>
+        ref.where( 'content', '==', '') )
+   .get().toPromise().then(querySnapshot=>{
+      querySnapshot.forEach( doc => {
+        doc.ref.delete();
+      })
+    })
+  }
 
 }

@@ -37,9 +37,13 @@ $mat-dark-theme-background: (
   disabled-button-toggle: map_get($mat-grey, 1000),
 );
 
-$dnd-app-theme: mat-dark-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
+$dnd-app-theme-dark: mat-dark-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
+$dnd-app-theme-light: mat-light-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($dnd-app-theme);
+@include angular-material-theme($dnd-app-theme-dark);
+@include mat-card-theme($dnd-app-theme-light);
+@include mat-form-field-theme($dnd-app-theme-light); // Form-Field theme
+@include mat-input-theme($dnd-app-theme-light);   
