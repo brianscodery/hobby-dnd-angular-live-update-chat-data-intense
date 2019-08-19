@@ -21,6 +21,7 @@ import { UnCamelCasePipe } from './pipes/un-camel-case.pipe';
 import { DiePipe } from './pipes/die.pipe';
 import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
 import { environment } from 'src/environments/environment';
+import { ChatComponent } from './components/chat/chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { environment } from 'src/environments/environment';
     SVGDieComponent,
     UnCamelCasePipe,
     DiePipe,
+    ChatComponent,
   ],
   imports: [
     HttpClientModule,

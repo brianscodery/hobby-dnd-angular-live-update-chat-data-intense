@@ -1,0 +1,8 @@
+<ng-container *ngIf="messages$ | async as messages">
+  <ol>
+    <li *ngFor="let message of messages">
+      {{message.from}}: {{message.content}}
+    </li>
+  </ol>
+  <input (change)="addMessage($event)">
+</ng-container>

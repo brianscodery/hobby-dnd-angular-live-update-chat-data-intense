@@ -7,8 +7,13 @@
           <mat-icon class="example-tab-icon">{{partyMember.generalStatus}}</mat-icon>
           {{partyMember.name}}
         </ng-template>
-    <app-character-sheet  *ngIf="afAuth.auth.currentUser.uid===partyMember.userId" [character]="partyMember"></app-character-sheet>
+    <app-character-sheet  *ngIf="afAuth.auth.currentUser.uid===partyMember.userId; else backOff" [character]="partyMember"></app-character-sheet>
     </mat-tab>
    
   </mat-tab-group>
 </section>
+
+<ng-template #backOff>
+  <h1>Sorry, this ain't your character</h1>
+  <h3>I'll soon(ish) be able to show you some basic details in this tab, but give me some time</h3>
+</ng-template>
