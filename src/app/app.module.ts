@@ -19,7 +19,8 @@ import { ModifierPipe } from './pipes/modifier.pipe';
 import { SVGDieComponent } from './components/svgdie/svgdie.component';
 import { UnCamelCasePipe } from './pipes/un-camel-case.pipe';
 import { DiePipe } from './pipes/die.pipe';
-
+import {NgxAuthFirebaseUIModule} from 'ngx-auth-firebaseui';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { DiePipe } from './pipes/die.pipe';
     RoutingModule,
     FirebaseModule,
     FormsModule,
+    NgxAuthFirebaseUIModule.forRoot( environment.firebase  ),
   ],
   providers: [],
   bootstrap: [AppComponent],

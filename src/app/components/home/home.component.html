@@ -7,7 +7,7 @@
           <mat-icon class="example-tab-icon">{{partyMember.generalStatus}}</mat-icon>
           {{partyMember.name}}
         </ng-template>
-    <app-character-sheet  [character]="partyMember"></app-character-sheet>
+    <app-character-sheet  *ngIf="afAuth.auth.currentUser.uid===partyMember.userId" [character]="partyMember"></app-character-sheet>
     </mat-tab>
    
   </mat-tab-group>

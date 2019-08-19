@@ -211,6 +211,7 @@ export interface CollectedDice {
 
 export interface Character {
   name: string;
+  userId: string;
   hitPoints: HitPoints;
   spells: string[];
   items: string[];
