@@ -130,5 +130,73 @@ export class SpellService {
     const assureLowercase = yesOrNo.toLowerCase();
     return assureLowercase === 'yes' ? true : false;
   }
+
+  public getMultiClassSpellLevel( character: Character ) {
+    let multiClassLevel = 0;
+    character.classes.forEach( ( classLevel: ClassLevel ) => {
+      switch ( classLevel.class ) {
+        case 'bard':
+        case 'cleric':
+        case 'druid':
+        case 'sorcerer':
+        case 'wizard':
+          multiClassLevel += classLevel.level;
+          return;
+        case 'paladin':
+        case 'ranger':
+          multiClassLevel += Math.floor( classLevel.level / 2 );
+      }
+    } );
+    return multiClassLevel;
+  }
+
+  public getMultiClassSpellSlots( multiClassSpellLevel: number ): SpellLevel[] {
+    const multiClassSpellSlots: number[] = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    switch ( true ) {
+      case multiClassSpellLevel === 1:
+        multiClassSpellSlots[ 1 ] = 2;
+        break;
+      case multiClassSpellLevel === 2:
+        multiClassSpellSlots[ 1 ] = 3;
+        break;
+      case multiClassSpellLevel >= 3:
+        multiClassSpellSlots[ 1 ] = 4;
+        multiClassSpellSlots[ 2 ] = 2;
+      case multiClassSpellLevel >= 4:
+        multiClassSpellSlots[ 2 ] = 3;
+      case multiClassSpellLevel >= 5:
+        multiClassSpellSlots[ 3 ] = 2;
+      case multiClassSpellLevel >= 5:
+        multiClassSpellSlots[ 3 ] = 2;
+      case multiClassSpellLevel >= 6:
+        multiClassSpellSlots[ 3 ] = 3;
+      case multiClassSpellLevel >= 7:
+        multiClassSpellSlots[ 4 ] = 1;
+      case multiClassSpellLevel >= 8:
+        multiClassSpellSlots[ 4 ] = 2;
+      case multiClassSpellLevel >= 9:
+        multiClassSpellSlots[ 4 ] = 3;
+        multiClassSpellSlots[ 5 ] = 1;
+      case multiClassSpellLevel >= 10:
+        multiClassSpellSlots[ 5 ] = 2;
+      case multiClassSpellLevel >= 11:
+        multiClassSpellSlots[ 6 ] = 1;
+      case multiClassSpellLevel >= 13:
+        multiClassSpellSlots[ 7 ] = 1;
+      case multiClassSpellLevel >= 15:
+        multiClassSpellSlots[ 8 ] = 1;
+      case multiClassSpellLevel >= 17:
+        multiClassSpellSlots[ 9 ] = 1;
+      case multiClassSpellLevel >= 18:
+        multiClassSpellSlots[ 5 ] = 3;
+      case multiClassSpellLevel >= 19:
+        multiClassSpellSlots[ 6 ] = 2;
+      case multiClassSpellLevel === 20:
+        multiClassSpellSlots[ 7 ] = 2;
+      default:
+        break;
+    }
+    return [ ...multiClassSpellSlots ] as SpellLevel[];
+  }
 }
 

@@ -1,3 +1,4 @@
+import { SpellService } from './apis/spell.service';
 import { HitDie, DieNumber, Weapon, Character, DieAndDamage } from './../interfaces/character';
 import { DnDMathService } from './dnd-math.service';
 import { Injectable } from '@angular/core';
@@ -12,6 +13,111 @@ import cloneDeep from 'lodash-es/cloneDeep';
 export class CharacterService {
   partyMembers$: Observable<Character[]>;
 
+ 
+ constructor ( private afs: AngularFirestore, private dndMathService: DnDMathService, private spellService: SpellService ) {
+    this.partyMembers$ = afs
+      .collection<Character>( 'partyMembers' )
+      .valueChanges()
+      .pipe(
+        map( characters => {
+          characters.map( character => {
+            this.addGeneralStatus( character );
+            return character;
+          } );
+          console.log( characters );
+          return characters;
+        } ),
+
+        map( characters => {
+          characters.map( character => {
+            this.addModifiers( character );
+            return character;
+          } );
+          console.log( characters );
+          return characters;
+        } ),
+
+        map( characters => {
+          characters.map( character => {
+            this.addSavingThrows( character );
+            return character;
+          } );
+          console.log( characters );
+          return characters;
+        } ),
+
+        map( characters => {
+          characters.forEach( ( character ) => {
+            this.collectHitDice( character );
+          } );
+          console.log( characters );
+          return characters;
+        } ),
+
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              this.addSkillModifiers( character );
+            } );
+          return characters;
+        } ),
+
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              this.generateWeaponsDetails( character );
+            } );
+          return characters;
+        } ),
+       
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              character.proficiencyBonus = this.dndMathService.getProficienctBonus( character );
+            } );
+          return characters;
+        } ),
+
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              character.multiClassSpellSlots = this.spellService.getMultiClassSpellSlots(this.spellService.getMultiClassSpellLevel(character));
+            } );
+          return characters;
+        } ),
+      );
+  }
+
+  addDieAndDamage( weapon: Weapon, character: Character ) {
+    let modifierToUse = weapon.ranged ? 'dexterity' : 'strength';
+    const dexModifier = character.abilityScores.dexterity.modifier;
+    const strModifier = character.abilityScores.strength.modifier;
+    if ( weapon.monk && dexModifier > strModifier ) {
+      modifierToUse = 'dexterity';
+    }
+    const modifier = modifierToUse === 'strength' ? strModifier : dexModifier;
+    weapon.attackBonus = modifier;
+    const dieText = `1d${ weapon.damageDie }`;
+    let modifierText: string;
+    switch ( true ) {
+      case modifier < 0:
+        modifierText = '- ';
+        break;
+      case modifier === 0:
+        modifierText = '';
+        break;
+      default:
+        modifierText = '+ ';
+        break;
+    }
+    modifierText = modifier ? ( modifierText + Math.abs( modifier ) ) : modifierText;
+    const damageType = weapon.damageType[ 0 ].toUpperCase() + weapon.damageType.slice( 1 );
+    weapon.dieAndDamage = new DieAndDamage();
+    weapon.dieAndDamage.oneHanded = `${ dieText } ${ modifierText } ${ damageType }`;
+    const versatileDieText = weapon.versatile ? `1d${ weapon.versatileDamageDie }` : dieText;
+      weapon.dieAndDamage.twoHanded = `${ versatileDieText } ${ modifierText } ${ damageType }`;
+  }
+  
   private addGeneralStatus( character: Character ): void {
     const current = character.hitPoints.current;
     const max = character.hitPoints.max;
@@ -101,114 +207,6 @@ export class CharacterService {
     console.log( character.weapons );
 
   }
-
-
-
-
-  constructor ( private afs: AngularFirestore, private dndMathService: DnDMathService ) {
-    this.partyMembers$ = afs
-      .collection<Character>( 'partyMembers' )
-      .valueChanges()
-      .pipe(
-        map( characters => {
-          characters.map( character => {
-            this.addGeneralStatus( character );
-            return character;
-          } );
-          console.log( characters );
-          return characters;
-        } ),
-
-        map( characters => {
-          characters.map( character => {
-            this.addModifiers( character );
-            return character;
-          } );
-          console.log( characters );
-          return characters;
-        } ),
-
-        map( characters => {
-          characters.map( character => {
-            this.addSavingThrows( character );
-            return character;
-          } );
-          console.log( characters );
-          return characters;
-        } ),
-
-        map( characters => {
-          characters.forEach( ( character ) => {
-            this.collectHitDice( character );
-          } );
-          console.log( characters );
-          return characters;
-        } ),
-
-        map( ( characters: Character[] ) => {
-          characters.forEach(
-            ( character: Character ) => {
-              this.addSkillModifiers( character );
-            } );
-          return characters;
-        } ),
-
-        map( ( characters: Character[] ) => {
-          characters.forEach(
-            ( character: Character ) => {
-              this.generateWeaponsDetails( character );
-            } );
-          return characters;
-        } ),
-       
-        map( ( characters: Character[] ) => {
-          characters.forEach(
-            ( character: Character ) => {
-              character.proficiencyBonus = this.dndMathService.getProficienctBonus( character );
-            } );
-          return characters;
-        } ),
-
-        map( ( characters: Character[] ) => {
-          characters.forEach(
-            ( character: Character ) => {
-              character.multiClassSpellSlots = this.dndMathService.getMultiClassSpellSlots(this.dndMathService.getMultiClassSpellLevel(character));
-              console.log( character.multiClassSpellSlots );
-            } );
-          return characters;
-        } ),
-      );
-  }
-
-  addDieAndDamage( weapon: Weapon, character: Character ) {
-    let modifierToUse = weapon.ranged ? 'dexterity' : 'strength';
-    const dexModifier = character.abilityScores.dexterity.modifier;
-    const strModifier = character.abilityScores.strength.modifier;
-    if ( weapon.monk && dexModifier > strModifier ) {
-      modifierToUse = 'dexterity';
-    }
-    const modifier = modifierToUse === 'strength' ? strModifier : dexModifier;
-    weapon.attackBonus = modifier;
-    const dieText = `1d${ weapon.damageDie }`;
-    let modifierText: string;
-    switch ( true ) {
-      case modifier < 0:
-        modifierText = '- ';
-        break;
-      case modifier === 0:
-        modifierText = '';
-        break;
-      default:
-        modifierText = '+ ';
-        break;
-    }
-    modifierText = modifier ? ( modifierText + Math.abs( modifier ) ) : modifierText;
-    const damageType = weapon.damageType[ 0 ].toUpperCase() + weapon.damageType.slice( 1 );
-    weapon.dieAndDamage = new DieAndDamage();
-    weapon.dieAndDamage.oneHanded = `${ dieText } ${ modifierText } ${ damageType }`;
-    const versatileDieText = weapon.versatile ? `1d${ weapon.versatileDamageDie }` : dieText;
-      weapon.dieAndDamage.twoHanded = `${ versatileDieText } ${ modifierText } ${ damageType }`;
-    }
   }
 
 
