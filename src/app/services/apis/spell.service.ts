@@ -1,3 +1,6 @@
+// tslint:disable: no-switch-case-fall-through
+
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -11,6 +14,7 @@ import {
   SpellLevel,
   Time,
   TimeUnit,
+  SpellStats,
 } from '../../interfaces/character';
 
 @Injectable( {
@@ -131,7 +135,7 @@ export class SpellService {
     return assureLowercase === 'yes' ? true : false;
   }
 
-  public getMultiClassSpellLevel( character: Character ) {
+  getMultiClassSpellLevel( character: Character ) {
     let multiClassLevel = 0;
     character.classes.forEach( ( classLevel: ClassLevel ) => {
       switch ( classLevel.class ) {
@@ -150,7 +154,7 @@ export class SpellService {
     return multiClassLevel;
   }
 
-  public getMultiClassSpellSlots( multiClassSpellLevel: number ): SpellLevel[] {
+  getMultiClassSpellSlots( multiClassSpellLevel: number ): SpellLevel[] {
     const multiClassSpellSlots: number[] = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
     switch ( true ) {
       case multiClassSpellLevel === 1:
@@ -197,6 +201,76 @@ export class SpellService {
         break;
     }
     return [ ...multiClassSpellSlots ] as SpellLevel[];
+  }
+
+  getSorcererSpellSlots( classLevel: number ): SpellStats {
+    const classSpellSlots: number[] = [ 0, 2, 0, 0, 0, 0, 0, 0, 0 ];
+    let spellsKnown = 2;
+    let cantripsKnown = 4;
+    switch ( true ) {
+      case classLevel >= 2:
+        spellsKnown = 3;
+        classSpellSlots[ 1 ] = 3;
+      case classLevel >= 3:
+        spellsKnown = 4;
+        classSpellSlots[ 1 ] = 4;
+        classSpellSlots[ 2 ] = 2;
+      case classLevel >= 4:
+        cantripsKnown = 5;
+        spellsKnown = 5;
+        classSpellSlots[ 2 ] = 3;
+      case classLevel >= 5:
+        spellsKnown = 6;
+        classSpellSlots[ 2 ] = 3;
+        classSpellSlots[ 3 ] = 2;
+      case classLevel >= 6:
+        spellsKnown = 7;
+        classSpellSlots[ 3 ] = 3;
+      case classLevel >= 7:
+        spellsKnown = 8;
+        classSpellSlots[ 4 ] = 1;
+      case classLevel >= 8:
+        spellsKnown = 9;
+        classSpellSlots[ 4 ] = 2;
+      case classLevel >= 9:
+        spellsKnown = 10;
+        classSpellSlots[ 4 ] = 3;
+        classSpellSlots[ 5 ] = 1;
+
+      case classLevel >= 10:
+        cantripsKnown = 6;
+        spellsKnown = 11;
+        classSpellSlots[ 5 ] = 2;
+      case classLevel >= 11:
+        spellsKnown = 12;
+        classSpellSlots[ 6 ] = 1;
+      case classLevel >= 12:
+      //not an error - no changes happen here
+      case classLevel >= 13:
+        spellsKnown = 13;
+        classSpellSlots[ 7 ] = 1;
+      case classLevel >= 14:
+      //not an error - no changes happen here
+
+      case classLevel >= 15:
+        spellsKnown = 14;
+        classSpellSlots[ 8 ] = 1;
+      case classLevel >= 16:
+      //not an error - no changes happen here
+
+      case classLevel >= 17:
+        spellsKnown = 15;
+        classSpellSlots[ 9 ] = 1;
+      case classLevel >= 18:
+        classSpellSlots[ 5 ] = 3;
+      case classLevel >= 19:
+        classSpellSlots[ 6 ] = 2;
+      case classLevel >= 20:
+        classSpellSlots[ 7 ] = 2;
+      default:
+        break;
+    }
+    return [ ...classSpellSlots ] as SpellLevel[];
   }
 }
 

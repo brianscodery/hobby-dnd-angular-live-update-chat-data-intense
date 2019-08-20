@@ -213,7 +213,6 @@ export interface Character {
   name: string;
   userId: string;
   hitPoints: HitPoints;
-  spells: string[];
   items: string[];
   languages: SpokenLanguage[];
   knowledge: string[];
@@ -238,10 +237,18 @@ export interface Character {
   wearingArmour?: boolean;
   usingShield?: boolean;
   traits?: CharacterTrait[];
-  multiClassSpellSlots?: SpellLevel[];
-  spellsKnown?: SpellLevel[];
-  spellsPerDay?: SpellLevel[];
+  spellStats?: SpellStats;
   alignment: Alignment;
+}
+
+export interface SpellStats {
+  spellsKnownNumber?: number;
+  cantripsKnownNumber?: number;
+  spellsPerDay?: SpellLevel[];
+  spellsRemaining?: SpellLevel[];
+  multiClassSpellsPerDay?: SpellLevel[];
+  spells: string[];
+
 }
 export interface Alignment {
   lawfulness: 'lawful' | 'neutral' | 'chaotic';

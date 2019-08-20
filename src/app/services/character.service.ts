@@ -13,8 +13,8 @@ import cloneDeep from 'lodash-es/cloneDeep';
 export class CharacterService {
   partyMembers$: Observable<Character[]>;
 
- 
- constructor ( private afs: AngularFirestore, private dndMathService: DnDMathService, private spellService: SpellService ) {
+
+  constructor ( private afs: AngularFirestore, private dndMathService: DnDMathService, private spellService: SpellService ) {
     this.partyMembers$ = afs
       .collection<Character>( 'partyMembers' )
       .valueChanges()
@@ -69,7 +69,7 @@ export class CharacterService {
             } );
           return characters;
         } ),
-       
+
         map( ( characters: Character[] ) => {
           characters.forEach(
             ( character: Character ) => {
@@ -81,7 +81,9 @@ export class CharacterService {
         map( ( characters: Character[] ) => {
           characters.forEach(
             ( character: Character ) => {
-              character.multiClassSpellSlots = this.spellService.getMultiClassSpellSlots(this.spellService.getMultiClassSpellLevel(character));
+              const multiclassLevel = this.spellService.getMultiClassSpellLevel( character );
+              character.spellStats.multiClassSpellsPerDay =
+                this.spellService.getMultiClassSpellSlots( multiclassLevel );
             } );
           return characters;
         } ),
@@ -115,9 +117,9 @@ export class CharacterService {
     weapon.dieAndDamage = new DieAndDamage();
     weapon.dieAndDamage.oneHanded = `${ dieText } ${ modifierText } ${ damageType }`;
     const versatileDieText = weapon.versatile ? `1d${ weapon.versatileDamageDie }` : dieText;
-      weapon.dieAndDamage.twoHanded = `${ versatileDieText } ${ modifierText } ${ damageType }`;
+    weapon.dieAndDamage.twoHanded = `${ versatileDieText } ${ modifierText } ${ damageType }`;
   }
-  
+
   private addGeneralStatus( character: Character ): void {
     const current = character.hitPoints.current;
     const max = character.hitPoints.max;
@@ -207,6 +209,6 @@ export class CharacterService {
     console.log( character.weapons );
 
   }
-  }
+}
 
 
