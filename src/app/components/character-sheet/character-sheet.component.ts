@@ -1,4 +1,4 @@
-import { WeaponService } from './../../services/weapon.service';
+import { WeaponService } from '../../services/apis/weapon.service';
 import { DnDMathService } from './../../services/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
 import {

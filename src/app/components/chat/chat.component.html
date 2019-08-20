@@ -24,7 +24,7 @@
   style="color: rgb(227,0,30); font-family: 'Marcellus SC', serif;"
   >
   
-      A simple medieval chat client
+      A modern medieval chat client
     </mat-card-subtitle>
     <div style="width: 100%;" class="participants" fxLayout="row wrap" fxLayoutAlign="end center">
       <div class="example-header-image"></div>
@@ -63,13 +63,23 @@
     </ng-container>
   </div>
 <hr>
-    <mat-form-field color="warn">
+<div class="chat-input" fxLayout="row" fxLayoutAlign="space-evenly center">
 
-      <input #messageInput matInput (keydown)="addMessage($event)" [placeholder]="'Go for ' + character.name">
+  <mat-form-field class="input">
+    
+    <input #messageInput matInput (keydown)="addMessage($event)" [placeholder]="'Go for ' + character.name">
       <button style="height: 1.8rem; width: 1.8rem;" mat-mini-fab isIconButton
-              color="primary" matSuffix [disabled]="!messageInput.value" (click)="addMessage()">
+      color="primary" matSuffix [disabled]="!messageInput.value" (click)="addMessage()">
               <mat-icon style="position: relative; bottom: .4rem;">arrow_upward</mat-icon>
             </button>
+          </mat-form-field>
+    <mat-form-field class="language">
+      <mat-label>Currently Speaking:</mat-label>
+      <mat-select [(value)]="currentLanguage">
+        <mat-option 
+        *ngFor="let language of character.languages" [value]="language">{{(language | uncamelcase) | titlecase}}</mat-option>
+      </mat-select>
     </mat-form-field>
+  </div>
   </mat-card>
 </div>

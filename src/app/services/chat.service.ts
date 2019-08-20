@@ -1,4 +1,4 @@
-import { Character } from './../interfaces/character';
+import { Character, SpokenLanguage } from './../interfaces/character';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
@@ -10,7 +10,9 @@ export interface Message {
   from: string;
   content: string;
   timestamp: Timestamp;
+  language: SpokenLanguage;
   date?: Date;
+
 }
 
 @Injectable( {
@@ -57,12 +59,12 @@ export class ChatService {
     return tempNames.join( '_' );
   }
 
-  addMessage( chatMembers: Character[], content: string, timestamp: firestore.Timestamp, from: string ): Promise<DocumentReference> {
+  addMessage( chatMembers: Character[], content: string, timestamp: firestore.Timestamp, from: string, language: SpokenLanguage ): Promise<DocumentReference> {
     const chatGroupName = this.getChatGroupName( chatMembers );
     return this.afs.collection( 'chats' )
       .doc( chatGroupName )
       .collection<Message>( 'messages' )
-      .add( { from, content, timestamp } );
+      .add( { from, content, timestamp, language } );
   }
 
   deleteBlankMessages( chatMembers: Character[] ) {

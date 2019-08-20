@@ -20,6 +20,7 @@ import {
   MatTooltipModule,
     MatExpansionModule,
     MatDividerModule,
+    MatSelectModule,
 
 } from '@angular/material';
 
@@ -45,7 +46,9 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+
 
   ],
   exports: [
@@ -68,6 +71,7 @@ import {
     MatTooltipModule,
     MatExpansionModule,
     MatDividerModule,
+    MatSelectModule,
 
   ],
 } )

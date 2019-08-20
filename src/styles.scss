@@ -4,46 +4,51 @@ html, body {
     height: 100%;
  }
 
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
+// @import "~@angular/material/prebuilt-themes/purple-green.css";
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+@import '~@angular/material/theming';
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$dnd-app-primary: mat-palette($mat-red);
-$dnd-app-accent:  mat-palette($mat-teal);
-
-// The warn palette is optional (defaults to red).
-$dnd-app-warn:    mat-palette($mat-deep-orange);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$mat-dark-theme-background: (
-  status-bar: black,
-  app-bar:    map_get($mat-grey, 900),
-  background: map-get($mat-grey, 600 ),
-  hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
-  card:       map_get($mat-red, 900),
-  dialog:     map_get($mat-grey, 100),
-  disabled-button: $white-12-opacity,
-  raised-button: map-get($mat-grey, 100),
-  focused-button: $white-6-opacity,
-  selected-button: map_get($mat-grey, 900),
-  selected-disabled-button: map_get($mat-grey, 800),
-  disabled-button-toggle: map_get($mat-grey, 1000),
+$dnd-red: (
+  50: #f4e4e5,
+  100: #e3babd,
+  200: #d18d92,
+  300: #be5f66,
+  400: #b03c45,
+  500: #a21a24,
+  600: #9a1720,
+  700: #90131b,
+  800: #860f16,
+  900: #75080d,
+  A100: #ffa5a8,
+  A200: #ff7276,
+  A400: #ff3f45,
+  A700: #ff252c,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: white,
+    A700: white,
+  )
 );
 
-$dnd-app-theme-dark: mat-dark-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
-$dnd-app-theme-light: mat-light-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($dnd-app-theme-dark);
-@include mat-card-theme($dnd-app-theme-light);
-@include mat-form-field-theme($dnd-app-theme-light); // Form-Field theme
-@include mat-input-theme($dnd-app-theme-dark);   
+
+
+$my-app-primary: mat-palette($dnd-red);
+$my-app-accent:  mat-palette($mat-teal);
+$my-app-warn:    mat-palette($mat-deep-orange);
+$my-app-theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+
+

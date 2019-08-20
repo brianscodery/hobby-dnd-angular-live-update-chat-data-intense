@@ -1,4 +1,4 @@
-import { Character } from './../../interfaces/character';
+import { Character, SpokenLanguage } from './../../interfaces/character';
 import { Message, ChatService } from './../../services/chat.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   @ViewChild( 'messageInput', { static: false } ) messageInputRef: ElementRef;
   messages$: Observable<Message[]>;
   currentChatMembers = [ { name: 'tonitrus' }, { name: 'js' } ];
+  currentLanguage: SpokenLanguage = 'common';
 
   constructor ( public chatService: ChatService, private _snackBar: MatSnackBar ) { }
 
@@ -37,7 +38,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     if ( !message ) { return; }
     if ( event && event.key !== 'Enter' ) { return; }
     const from = this.character.name;
-    await this.chatService.addMessage( this.currentChatMembers, message, timestamp, from ).then( () => {
+    await this.chatService.addMessage( this.currentChatMembers, message, timestamp, from, 'common' ).then( () => {
       this.messageInputRef.nativeElement.value = '';
     } ).catch( error => {
       const errorMessage = `There was an error sending your message

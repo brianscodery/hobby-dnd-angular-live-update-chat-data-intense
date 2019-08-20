@@ -215,7 +215,7 @@ export interface Character {
   hitPoints: HitPoints;
   spells: string[];
   items: string[];
-  languages: string[];
+  languages: SpokenLanguage[];
   knowledge: string[];
   abilityScores: AbilityScores;
   proficiencies: Proficiencies;
@@ -268,7 +268,7 @@ export interface Background {
 export interface ProficiencyList {
   skills?: Skill[];
   tools?: string[];
-  languages?: Language[];
+  languages?: SpokenLanguage[];
 }
 export type TraitSource = Class | Race | any;
 export type ProficiencyBonusOption = 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
@@ -464,7 +464,7 @@ export interface Spell {
 export type MagicComponent = 'verbal' | 'somatic' | 'material';
 
 export interface Time {
-  quantity: number;
+  quantity?: number;
   denomination: TimeUnit;
 }
 export type SpellLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
@@ -472,6 +472,7 @@ export type SpellLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type TimeUnit =
   | 'action'
   | 'reaction'
+  | 'bonus action'
   | 'second'
   | 'minute'
   | 'hour'
@@ -490,3 +491,67 @@ export type MagicSchool =
   | 'illusion'
   | 'necromancy'
   | 'transmutation';
+
+export interface LanguageScript {
+  language: SpokenLanguage;
+  script: WrittenScript;
+}
+
+export type SpokenLanguage =
+  | 'abyssal'
+  | 'aquan'
+  | 'auran'
+  | 'celestial'
+  | 'common'
+  | 'deepSpeech'
+  | 'draconic'
+  | 'druidic'
+  | 'dwarvish'
+  | 'elvish'
+  | 'giant'
+  | 'gnomish'
+  | 'goblin'
+  | 'gnoll'
+  | 'halfling'
+  | 'ignan'
+  | 'infernal'
+  | 'orc'
+  | 'primordial'
+  | 'sylvan'
+  | 'terran'
+  | 'undercommonn';
+
+export type WrittenScript =
+  | 'elvish'
+  | 'draconic'
+  | 'elestial'
+  | 'common'
+  | 'druidic '
+  | 'dwarvish'
+  | 'infernal'
+  | 'noScript';
+
+export const languageScriptMap = {
+  abyssal: 'infernal',
+  aquan: 'elvish',
+  auran: 'draconic',
+  celestial: 'celestial',
+  common: 'common',
+  deepSpeech: 'noScript',
+  draconic: 'draconic',
+  druidic: 'druidic',
+  dwarvish: 'dwarvish',
+  elvish: 'elvish',
+  giant: 'dwarvish',
+  gnomish: 'dwarvish',
+  goblin: 'dwarvish',
+  gnoll: 'common',
+  halfling: 'common',
+  ignan: 'draconic',
+  infernal: 'infernal',
+  orc: 'dwarvish',
+  primordial: 'dwarvish',
+  sylvan: 'elvish',
+  terran: 'dwarvish',
+  undercommonn: 'elvish'
+};
