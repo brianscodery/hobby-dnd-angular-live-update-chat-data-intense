@@ -1,7 +1,7 @@
 import { Character, SpokenLanguage } from './../../interfaces/character';
 import { Message, ChatService } from './../../services/chat.service';
 import { Observable } from 'rxjs';
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { firestore } from 'firebase';
 import isSameDay from 'date-fns/is_same_day';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './chat.component.html',
   styleUrls: [ './chat.component.scss' ]
 } )
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewInit {
   isSameDay = isSameDay;
   @Input() character: Character;
   @ViewChild( 'scrollMe', { static: false } ) private myScrollContainer: ElementRef;
@@ -25,11 +25,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.messages$ = this.chatService.getChatMessages( this.currentChatMembers );
-    // this.scrollToBottom();
   }
 
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
+  ngAfterViewInit(): void {
+    setTimeout(()=>this.scrollToBottom() ,1000);
   }
 
   async addMessage( event?: KeyboardEvent ) {
@@ -38,7 +37,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     if ( !message ) { return; }
     if ( event && event.key !== 'Enter' ) { return; }
     const from = this.character.name;
-    await this.chatService.addMessage( this.currentChatMembers, message, timestamp, from, 'common' ).then( () => {
+    await this.chatService.addMessage( this.currentChatMembers, message, timestamp, from, this.currentLanguage ).then( () => {
       this.messageInputRef.nativeElement.value = '';
     } ).catch( error => {
       const errorMessage = `There was an error sending your message
@@ -51,7 +50,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
           console.log( 'snack-bar dismissed' );
         } );
       snackBarRef.dismiss();
-    }); 
+    } ); 
+    this.scrollToBottom();
   }
 
   scrollToBottom(): void {

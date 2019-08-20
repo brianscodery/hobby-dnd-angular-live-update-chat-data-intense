@@ -52,7 +52,7 @@
         {{message.from}}
       </div>
       <div
-           [ngClass]="{'first-person': character.name===message.from, 'third-person': character.name !== message.from}">
+           [ngClass]="{'first-person': character.name===message.from, 'third-person': character.name !== message.from}" [matTooltip]="'spoken in: ' + message.language | titlecase">
            {{message.content}}
       </div>
       <div
