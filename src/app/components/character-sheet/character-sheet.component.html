@@ -99,7 +99,7 @@
 
   <mat-grid-tile colspan="2"
                  rowspan="1">
-    <mat-checkbox color="warn">Inspiration</mat-checkbox>
+    <mat-checkbox>Inspiration</mat-checkbox>
   </mat-grid-tile>
 
   <mat-grid-tile colspan="1"
@@ -188,7 +188,7 @@
 
   <mat-grid-tile colspan="2"
                  rowspan="1">
-    <mat-icon color="warn">filter_{{character.proficiencyBonus}}</mat-icon>&nbsp;Proficiency Bonus
+    <mat-icon color="accent">filter_{{character.proficiencyBonus}}</mat-icon>&nbsp;Proficiency Bonus
   </mat-grid-tile>
 
   <mat-grid-tile colspan="2"
@@ -408,7 +408,8 @@
           <mat-form-field class="weapon-damage-type">
             <input matInput
                    [placeholder]="i === 0 ? 'DAMAGE / TYPE' : ''"
-                   [value]="weapon.dieAndDamage[weapon.currentNumberOfHands]">
+                   [value]="weapon.dieAndDamage[weapon.currentNumberOfHands]"
+                   >
             <button mat-button
                     matSuffix
                     mat-icon-button

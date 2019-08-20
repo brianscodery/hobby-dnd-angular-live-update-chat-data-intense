@@ -131,7 +131,7 @@ export class DnDMathService {
       default:
         break;
       }
-      return multiClassSpellSlots;
+      return [...multiClassSpellSlots] as SpellLevel[];
   }
 
   public getProficienctBonus( character: Character ): ProficiencyBonusOption {

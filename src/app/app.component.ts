@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LinkMenuItem, AuthProvider, Theme } from 'ngx-auth-firebaseui';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {auth} from 'firebase/app'
+import { SpellService } from './services/apis/spell.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,14 +15,15 @@ export class AppComponent {
   themes= Theme;
 
   ngOnInit(): void {
-    this.links = [
-      { icon: 'home', text: 'Home', callback: this.printLog },
-      { icon: 'favorite', text: 'Favorite', callback: this.printLog },
-      { icon: 'add', text: 'Add', callback: this.printLog },
-    ];
+    // this.links = [
+    //   { icon: 'home', text: 'Home', callback: this.printLog },
+    //   { icon: 'favorite', text: 'Favorite', callback: this.printLog },
+    //   { icon: 'add', text: 'Add', callback: this.printLog },
+    // ];
+    // this.spellService.addSpellsToDB();
   }
 
-  constructor(public afAuth: AngularFireAuth){}
+  constructor(public afAuth: AngularFireAuth, public spellService: SpellService){}
   printUser( event ) {
     console.log( event );
   }

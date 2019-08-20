@@ -423,7 +423,7 @@ export class Armour {
   stealthDisadvantage?: boolean;
   strengthMinimum?: number;
   magicalBonus?: number;
-  constructor ( name: string, wtCat: ArmourWeightCategory, ac: ArmourClass, cost: Cost, weight: number, stlthDis?: boolen, strMin?: number, magBonus?: number ) {
+  constructor ( name: string, wtCat: ArmourWeightCategory, ac: ArmourClass, cost: Cost, weight: number, stlthDis?: boolean, strMin?: number, magBonus?: number ) {
     this.name = name;
     this.weightCategory = wtCat;
     this.armourClass = ac;
@@ -452,13 +452,17 @@ export interface Spell {
   components: MagicComponent[];
   concentration: boolean;
   description: string[];
-  duration: Time | 'until dispelled';
+  duration: string;
   level: SpellLevel;
   name: string;
   page: string;
-  range: Range;
+  range: string;
   ritual: boolean;
   school: MagicSchool;
+  material?: string;
+  higherLevels?: string;
+  archetype?: string;
+  circles?: string;
 }
 
 export type MagicComponent = 'verbal' | 'somatic' | 'material';

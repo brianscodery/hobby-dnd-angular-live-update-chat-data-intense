@@ -24,7 +24,7 @@ export class ChatService {
     this.deleteBlankMessages( [ { name: 'tonitrus' }, { name: 'js' } ] );
   }
 
-  getChatMessages( characters: Character[] ): Observable<Message[]> {
+  getChatMessages( characters: any[] ): Observable<Message[]> {
     const chatGroupName = this.getChatGroupName( characters );
     return this.afs.collection( 'chats' ).doc( chatGroupName ).collection<Message>( 'messages' ).valueChanges()
       .pipe(
@@ -48,7 +48,7 @@ export class ChatService {
     ));
   }
 
-  getChatGroupName( characters: Character[] ): string{
+  getChatGroupName( characters: any[] ): string{
     const tempCharacters = [ ...characters ].sort( ( a, b ) => {
       if ( a.name > b.name ) { return 1 };
       if ( a.name < b.name ) { return -1 };
@@ -59,15 +59,17 @@ export class ChatService {
     return tempNames.join( '_' );
   }
 
-  addMessage( chatMembers: Character[], content: string, timestamp: firestore.Timestamp, from: string, language: SpokenLanguage ): Promise<DocumentReference> {
+  addMessage( chatMembers: any[], content: string, timestamp: firestore.Timestamp, from: string, language: SpokenLanguage ): Promise<DocumentReference> {
     const chatGroupName = this.getChatGroupName( chatMembers );
-    return this.afs.collection( 'chats' )
-      .doc( chatGroupName )
-      .collection<Message>( 'messages' )
+    const docRef = this.afs.collection( 'chats' )
+      .doc( chatGroupName );
+    //this shoudn't be done first, but i don't care right now
+    docRef.update( { last: timestamp});
+    return docRef.collection<Message>( 'messages' )
       .add( { from, content, timestamp, language } );
   }
 
-  deleteBlankMessages( chatMembers: Character[] ) {
+  deleteBlankMessages( chatMembers: any[] ) {
     const chatGroupName = this.getChatGroupName( chatMembers );
     const messagesRef = this.afs
       .collection( 'chats' )

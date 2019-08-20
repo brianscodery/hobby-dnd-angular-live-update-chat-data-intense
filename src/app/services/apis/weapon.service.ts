@@ -70,7 +70,7 @@ export class WeaponService {
   addArmourToDB() {
     for ( let i = 38; i <= 50; i++ ) {
       this.http
-        .get<any[]>( 'http://www.dnd5eapi.co/api/equipment/' + i )
+        .get<any>( 'http://www.dnd5eapi.co/api/equipment/' + i )
         .subscribe( armour => {
           const newArmour = new Armour(
             armour.name.toLowerCase(),
