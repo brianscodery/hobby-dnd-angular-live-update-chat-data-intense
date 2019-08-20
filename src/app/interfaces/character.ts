@@ -247,7 +247,7 @@ export interface SpellStats {
   spellsPerDay?: SpellLevel[];
   spellsRemaining?: SpellLevel[];
   multiClassSpellsPerDay?: SpellLevel[];
-  spells: string[];
+  spells?: string[];
 
 }
 export interface Alignment {
