@@ -19,21 +19,25 @@ $dnd-app-warn:    mat-palette($mat-deep-orange);
 $mat-dark-theme-background: (
   status-bar: black,
   app-bar:    map_get($mat-grey, 900),
-  background: map-get($mat-grey, 700 ),
+  background: map-get($mat-grey, 600 ),
   hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
-  card:       map_get($mat-grey, 800),
-  dialog:     map_get($mat-grey, 800),
+  card:       map_get($mat-red, 900),
+  dialog:     map_get($mat-grey, 100),
   disabled-button: $white-12-opacity,
-  raised-button: map-get($mat-grey, 800),
+  raised-button: map-get($mat-grey, 100),
   focused-button: $white-6-opacity,
   selected-button: map_get($mat-grey, 900),
   selected-disabled-button: map_get($mat-grey, 800),
   disabled-button-toggle: map_get($mat-grey, 1000),
 );
 
-$dnd-app-theme: mat-dark-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
+$dnd-app-theme-dark: mat-dark-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
+$dnd-app-theme-light: mat-light-theme($dnd-app-primary, $dnd-app-accent, $dnd-app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($dnd-app-theme);
+@include angular-material-theme($dnd-app-theme-light);
+@include mat-card-theme($dnd-app-theme-light);
+@include mat-form-field-theme($dnd-app-theme-light); // Form-Field theme
+@include mat-input-theme($dnd-app-theme-light);   

@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.messages$ = this.chatService.getChatMessages( this.currentChatMembers );
+    // this.scrollToBottom();
   }
 
   ngAfterViewChecked(): void {
