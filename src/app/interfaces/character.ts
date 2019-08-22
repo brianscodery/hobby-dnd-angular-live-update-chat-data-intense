@@ -242,13 +242,13 @@ export interface Character {
 }
 
 export interface SpellStats {
-  spellsKnownNumber?: number;
-  cantripsKnownNumber?: number;
-  spellsPerDay?: SpellLevel[];
-  spellsRemaining?: SpellLevel[];
-  multiClassSpellsPerDay?: SpellLevel[];
-  spells?: string[];
-
+  spellsKnownNumber?: number | 'no limit';
+  cantripsKnownNumber ?: number;
+  spellsPerLongRest ?: SpellLevel[];
+  spellsRemaining ?: SpellLevel[];
+  multiClassSpellsPerDay ?: SpellLevel[];
+  spells ?: string[];
+  preparableSpells ?: number;
 }
 export interface Alignment {
   lawfulness: 'lawful' | 'neutral' | 'chaotic';

@@ -15,6 +15,8 @@ import {
   Time,
   TimeUnit,
   SpellStats,
+  Character,
+  ClassLevel
 } from '../../interfaces/character';
 
 @Injectable( {
@@ -203,71 +205,149 @@ export class SpellService {
     return [ ...multiClassSpellSlots ] as SpellLevel[];
   }
 
+  
   getSorcererSpellSlots( classLevel: number ): SpellStats {
-    const spellsPerDay: number[] = [ 0, 2, 0, 0, 0, 0, 0, 0, 0 ];
-    let spellsKnownNumber = 2;
-    let cantripsKnownNumber = 4;
-    switch ( true ) {
-      case classLevel >= 2:
-        spellsKnownNumber = 3;
-        spellsPerDay[ 1 ] = 3;
-      case classLevel >= 3:
-        spellsKnownNumber = 4;
-        spellsPerDay[ 1 ] = 4;
-        spellsPerDay[ 2 ] = 2;
-      case classLevel >= 4:
-        cantripsKnownNumber = 5;
-        spellsKnownNumber = 5;
-        spellsPerDay[ 2 ] = 3;
-      case classLevel >= 5:
-        spellsKnownNumber = 6;
-        spellsPerDay[ 2 ] = 3;
-        spellsPerDay[ 3 ] = 2;
-      case classLevel >= 6:
-        spellsKnownNumber = 7;
-        spellsPerDay[ 3 ] = 3;
-      case classLevel >= 7:
-        spellsKnownNumber = 8;
-        spellsPerDay[ 4 ] = 1;
-      case classLevel >= 8:
-        spellsKnownNumber = 9;
-        spellsPerDay[ 4 ] = 2;
-      case classLevel >= 9:
-        spellsKnownNumber = 10;
-        spellsPerDay[ 4 ] = 3;
-        spellsPerDay[ 5 ] = 1;
-      case classLevel >= 10:
-        cantripsKnownNumber = 6;
-        spellsKnownNumber = 11;
-        spellsPerDay[ 5 ] = 2;
-      case classLevel >= 11:
-        spellsKnownNumber = 12;
-        spellsPerDay[ 6 ] = 1;
-      case classLevel >= 12:
-      //not an error - no changes happen this level
-      case classLevel >= 13:
-        spellsKnownNumber = 13;
-        spellsPerDay[ 7 ] = 1;
-      case classLevel >= 14:
-      //not an error - no changes happen here
-      case classLevel >= 15:
-        spellsKnownNumber = 14;
-        spellsPerDay[ 8 ] = 1;
-      case classLevel >= 16:
-      //not an error - no changes happen here
-      case classLevel >= 17:
-        spellsKnownNumber = 15;
-        spellsPerDay[ 9 ] = 1;
-      case classLevel >= 18:
-        spellsPerDay[ 5 ] = 3;
-      case classLevel >= 19:
-        spellsPerDay[ 6 ] = 2;
-      case classLevel === 20:
-        spellsPerDay[ 7 ] = 2;
-      default:
-        break;
+    let spellsPerLongRest: number[];
+    let spellsKnownNumber: number;
+    let cantripsKnownNumber: number;
+    if ( classLevel === 1 ) {
+      cantripsKnownNumber = 4;
+      spellsKnownNumber = 2;
+      spellsPerLongRest = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
-    return { spellsKnownNumber, cantripsKnownNumber, spellsPerDay} as SpellStats;
+    if ( classLevel === 1 ) {
+      cantripsKnownNumber = 4;
+      spellsKnownNumber = 2;
+      spellsPerLongRest = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 2 ) {
+      cantripsKnownNumber = 4;
+      spellsKnownNumber = 3;
+      spellsPerLongRest = [ 999, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 3 ) {
+      cantripsKnownNumber = 4;
+      spellsKnownNumber = 4;
+      spellsPerLongRest = [ 999, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 4 ) {
+      cantripsKnownNumber = 5;
+      spellsKnownNumber = 5;
+      spellsPerLongRest = [ 999, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 5 ) {
+      cantripsKnownNumber = 5;
+      spellsKnownNumber = 6;
+      spellsPerLongRest = [ 999, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 6 ) {
+      cantripsKnownNumber = 5;
+      spellsKnownNumber = 7;
+      spellsPerLongRest = [ 999, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 7 ) {
+      cantripsKnownNumber = 5;
+      spellsKnownNumber = 8;
+      spellsPerLongRest = [ 999, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 8 ) {
+      cantripsKnownNumber = 5;
+      spellsKnownNumber = 9;
+      spellsPerLongRest = [ 999, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 9 ) {
+      cantripsKnownNumber = 5;
+      spellsKnownNumber = 10;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 10 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 11;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 11 || classLevel === 12 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 12;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 0, 0, 0 ];
+    }
+    if ( classLevel === 13 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 13;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+    }
+    if ( classLevel === 14 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 13;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+    }
+    if ( classLevel === 15 || classLevel === 16 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 14;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 0 ];
+    }
+    if ( classLevel === 17 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 15;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 1 ];
+    }
+    if ( classLevel === 18 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 15;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 3, 1, 1, 1, 1 ];
+    }
+    if ( classLevel === 19 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 15;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 3, 2, 1, 1, 1 ];
+    }
+    if ( classLevel === 20 ) {
+      cantripsKnownNumber = 6;
+      spellsKnownNumber = 15;
+      spellsPerLongRest = [ 999, 4, 3, 3, 3, 3, 2, 2, 1, 1 ];
+    }
+    return { spellsKnownNumber, cantripsKnownNumber, spellsPerLongRest } as SpellStats;
+  }
+
+  getPaladinSpellSlots( classLevel: number, charismaModifier: number ): SpellStats {
+    const preparableSpells = Math.floor( charismaModifier + ( classLevel / 2 ) );
+    const spellsKnownNumber = 'no limit';
+    const cantripsKnownNumber = 0;
+    let spellsPerLongRest: number[];
+    if ( classLevel === 1 ) {
+      spellsPerLongRest = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 2 ) {
+      spellsPerLongRest = [ 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 3 || classLevel === 4 ) {
+      spellsPerLongRest = [ 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 5 || classLevel === 6 ) {
+      spellsPerLongRest = [ 0, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 7 || classLevel === 8 ) {
+      spellsPerLongRest = [ 0, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 9 || classLevel === 10 ) {
+      spellsPerLongRest = [ 0, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 11 || classLevel === 12 ) {
+      spellsPerLongRest = [ 0, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 13 || classLevel === 14 ) {
+      spellsPerLongRest = [ 0, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 15 || classLevel === 16 ) {
+      spellsPerLongRest = [ 0, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 17 || classLevel === 18 ) {
+      spellsPerLongRest = [ 0, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 19 || classLevel === 20 ) {
+      spellsPerLongRest = [ 0, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
+    }
+ 
+    return { spellsKnownNumber, preparableSpells, cantripsKnownNumber, spellsPerLongRest } as SpellStats;
   }
 }
 

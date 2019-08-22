@@ -78,15 +78,15 @@ export class CharacterService {
           return characters;
         } ),
 
-        map( ( characters: Character[] ) => {
-          characters.forEach(
-            ( character: Character ) => {
-              const multiclassLevel = this.spellService.getMultiClassSpellLevel( character );
-              character.spellStats.multiClassSpellsPerDay =
-                this.spellService.getMultiClassSpellSlots( multiclassLevel );
-            } );
-          return characters;
-        } ),
+        // map( ( characters: Character[] ) => {
+        //   characters.forEach(
+        //     ( character: Character ) => {
+        //       const multiclassLevel = this.spellService.getMultiClassSpellLevel( character );
+        //       character.spellStats.multiClassSpellsPerDay =
+        //         this.spellService.getMultiClassSpellSlots( multiclassLevel );
+        //     } );
+        //   return characters;
+        // } ),
       );
   }
 

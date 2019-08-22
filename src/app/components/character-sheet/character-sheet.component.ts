@@ -1,16 +1,18 @@
+import { SpellService } from './../../services/apis/spell.service';
 import { WeaponService } from '../../services/apis/weapon.service';
 import { DnDMathService } from './../../services/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   Character,
   AbilityScores,
-  Ability, 
-  HitDie, 
+  Ability,
+  HitDie,
   SavingThrows,
   ABILITIES_IN_ORDER,
-  TREASURES_IN_ORDER, 
+  TREASURES_IN_ORDER,
   SKILLS_IN_ORDER,
-  Weapon } from './../../interfaces/character';
+  Weapon
+} from './../../interfaces/character';
 
 
 @Component( {
@@ -32,10 +34,10 @@ export class CharacterSheetComponent implements OnInit {
   step = 0;
   flawsText = '';
 
-  constructor ( private dndMathService: DnDMathService, private weaponService: WeaponService ) { }
+  constructor ( private dndMathService: DnDMathService, private weaponService: WeaponService, private spellService: SpellService ) { }
 
   ngOnInit() {
-    this.character.background.flaws.forEach(flaw=>this.flawsText += flaw.description + '\n');
+    this.character.background.flaws.forEach( flaw => this.flawsText += flaw.description + '\n' );
 
 
     this.disabled = false;
@@ -52,7 +54,7 @@ export class CharacterSheetComponent implements OnInit {
 
   getPassiveScores(): string {
     const passiveScoresText =
-    `Passive Strength: ${ this.character.abilityScores.strength.passiveScore }
+      `Passive Strength: ${ this.character.abilityScores.strength.passiveScore }
 Passive Dexterity: ${this.character.abilityScores.dexterity.passiveScore }
 Passive Intelligence: ${this.character.abilityScores.intelligence.passiveScore }
 Passive Charisma: ${this.character.abilityScores.charisma.passiveScore }
@@ -63,11 +65,11 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
 
   toggleNumberOfHands( weapon: Weapon ) {
     weapon.currentNumberOfHands = weapon.currentNumberOfHands === 'oneHanded' ? 'twoHanded' : 'oneHanded';
-}
+  }
 
- 
 
-  setStep(index: number) {
+
+  setStep( index: number ) {
     this.step = index;
   }
 
@@ -78,5 +80,9 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
   prevStep() {
     this.step--;
   }
-}
 
+
+  testSarahsThing() {
+   console.log( this.spellService.getSorcererSpellSlots( 20 ));
+  }
+}
