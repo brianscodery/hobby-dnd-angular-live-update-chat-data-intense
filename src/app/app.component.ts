@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { LinkMenuItem, AuthProvider, Theme } from 'ngx-auth-firebaseui';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {auth} from 'firebase/app'
-import { SpellService } from './services/apis/spell.service';
+import { SpellService } from './core/apis/spell.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

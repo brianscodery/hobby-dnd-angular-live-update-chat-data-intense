@@ -1,4 +1,4 @@
-import { CharacterService } from './../../services/character.service';
+import { CharacterService } from '../../core/character.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 

@@ -1,4 +1,4 @@
-import { Character, SpokenLanguage } from './../interfaces/character';
+import { Character, SpokenLanguage } from '../interfaces/character';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';

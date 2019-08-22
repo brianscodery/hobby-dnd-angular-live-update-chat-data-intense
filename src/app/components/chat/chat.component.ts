@@ -1,5 +1,5 @@
 import { Character, SpokenLanguage } from './../../interfaces/character';
-import { Message, ChatService } from './../../services/chat.service';
+import { Message, ChatService } from '../../core/chat.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { firestore } from 'firebase';

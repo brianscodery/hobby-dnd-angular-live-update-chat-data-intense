@@ -1,6 +1,6 @@
-import { SpellService } from './../../services/apis/spell.service';
-import { WeaponService } from '../../services/apis/weapon.service';
-import { DnDMathService } from './../../services/dnd-math.service';
+import { SpellService } from '../../core/apis/spell.service';
+import { WeaponService } from '../../core/apis/weapon.service';
+import { DnDMathService } from '../../core/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   Character,
