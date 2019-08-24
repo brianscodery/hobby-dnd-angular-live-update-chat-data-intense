@@ -7,7 +7,8 @@ import { DiePipe } from './pipes/die.pipe';
 
 
 @NgModule({
-  declarations: [ ModifierPipe,
+  declarations: [
+    ModifierPipe,
     UnCamelCasePipe,
     DiePipe,
   ],
@@ -17,7 +18,8 @@ import { DiePipe } from './pipes/die.pipe';
   exports: [
     ModifierPipe,
     UnCamelCasePipe,
-    DiePipe
+    DiePipe,
+    CommonModule
   ]
 })
 export class SharedModule { }

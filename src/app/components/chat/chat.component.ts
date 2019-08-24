@@ -1,4 +1,4 @@
-import { Character, SpokenLanguage } from './../../interfaces/character';
+import { Character, SpokenLanguage } from '../../shared/common-interfaces-and-types';
 import { Message, ChatService } from '../../core/chat.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';

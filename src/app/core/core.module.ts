@@ -1,5 +1,6 @@
+import { AngularMaterialBundleModule } from '../shared/angular-material-bundle.module';
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -10,29 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import {
-  MatBadgeModule,
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatProgressBarModule,
-  MatRadioModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatExpansionModule,
-  MatDividerModule,
-  MatSelectModule,
-} from '@angular/material';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @NgModule( {
   declarations: [],
@@ -42,6 +21,9 @@ import {
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp( environment.firebase ),
+    SharedModule,
+    AngularMaterialBundleModule,
+    NgxAuthFirebaseUIModule.forRoot( environment.firebase ),
 
   ],
   exports: [
@@ -56,26 +38,8 @@ import {
     AngularFireStorageModule,
     AngularFireModule,
     AngularFireFunctionsModule,
-    MatBadgeModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatRadioModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatExpansionModule,
-    MatDividerModule,
-    MatSelectModule,
+    AngularMaterialBundleModule,
+    NgxAuthFirebaseUIModule
   ],
 } )
 

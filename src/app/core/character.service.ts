@@ -1,5 +1,5 @@
 import { SpellService } from './apis/spell.service';
-import { HitDie, DieNumber, Weapon, Character, DieAndDamage } from '../interfaces/character';
+import { HitDie, DieNumber, Weapon, Character, DieAndDamage } from '../shared/common-interfaces-and-types';
 import { DnDMathService } from './dnd-math.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';

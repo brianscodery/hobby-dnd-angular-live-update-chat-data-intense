@@ -10,7 +10,7 @@ import {
   ClassLevel,
   ProficiencyBonusOption,
   SpellLevel
-} from '../interfaces/character';
+} from '../shared/common-interfaces-and-types';
 import { Injectable } from '@angular/core';
 import forEach from 'lodash-es/forEach';
 import cloneDeep from 'lodash-es/cloneDeep';

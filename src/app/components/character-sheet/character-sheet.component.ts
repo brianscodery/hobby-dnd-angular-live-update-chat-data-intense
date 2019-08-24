@@ -12,7 +12,7 @@ import {
   TREASURES_IN_ORDER,
   SKILLS_IN_ORDER,
   Weapon
-} from './../../interfaces/character';
+} from '../../shared/common-interfaces-and-types';
 
 
 @Component( {

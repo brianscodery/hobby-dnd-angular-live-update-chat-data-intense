@@ -1,68 +1,3 @@
-exexport interface AbilityScores {
-  dexterity: AbilityScore;
-  constitution: AbilityScore;
-  strength: AbilityScore;
-  charisma: AbilityScore;
-  intelligence: AbilityScore;
-  wisdom: AbilityScore;
-}
-
-export interface AbilityScore {
-  score: number;
-  modifier: number;
-  passiveScore: number;
-}
-
-export interface AbilityScore {
-  score: number;
-  modifier: number;
-  passiveScore: number;
-}
-
-export interface AbilityScore {
-  score: number;
-  modifier: number;
-  passiveScore: number;
-}
-
-export class SkillModifiers {
-  athletics: number;
-  acrobatics: number;
-  sleightOfHand: number;
-  stealth: number;
-  arcana: number;
-  history: number;
-  investigation: number;
-  nature: number;
-  religion: number;
-  animalHandling: number;
-  insight: number;
-  medicine: number;
-  perception: number;
-  survival: number;
-  deception: number;
-  intimidation: number;
-  performance: number;
-  persuasion: number;
-  constructor () { }
-};
-
-export class SavingThrows {
-  dexterity: SavingThrow;
-  constitution: SavingThrow;
-  strength: SavingThrow;
-  charisma: SavingThrow;
-  wisdom: SavingThrow;
-  intelligence: SavingThrow;
-  constructor () {
-    this.charisma = new SavingThrow();
-    this.dexterity = new SavingThrow();
-    this.wisdom = new SavingThrow();
-    this.intelligence = new SavingThrow();
-    this.strength = new SavingThrow();
-    this.constitution = new SavingThrow();
-  }
-}
 
 
 export type GeneralStatus =
@@ -72,74 +7,74 @@ export type GeneralStatus =
   | 'sentiment_very_dissatisfied'
   | 'block';
 
-export type Skill =
-  | 'acrobatics'
-  | 'animalHandling'
-  | 'arcana'
-  | 'athletics'
-  | 'deception'
-  | 'history'
-  | 'insight'
-  | 'intimidation'
-  | 'investigation'
-  | 'medicine'
-  | 'nature'
-  | 'perception'
-  | 'performance'
-  | 'persuasion'
-  | 'religion'
-  | 'sleightOfHand'
-  | 'stealth'
-  | 'survival';
+export interface HitPoints {
+  current: number;
+  max: number;
+  temp: number;
+}
 
-export const SKILL_ABILITIES = {
-  athletics: 'strength',
-  acrobatics: 'dexterity',
-  sleightOfHand: 'dexterity',
-  stealth: 'dexterity',
-  arcana: 'intelligence',
-  history: 'intelligence',
-  investigation: 'intelligence',
-  nature: 'intelligence',
-  religion: 'intelligence',
-  animalHandling: 'wisdom',
-  insight: 'wisdom',
-  medicine: 'wisdom',
-  perception: 'wisdom',
-  survival: 'wisdom',
-  deception: 'charisma',
-  intimidation: 'charisma',
-  performance: 'charisma',
-  persuasion: 'charisma',
-};
+export interface Character {
+  name: string;
+  userId: string;
+  hitPoints: HitPoints;
+  items: string[];
+  languages: SpokenLanguage[];
+  knowledge: string[];
+  abilityScores: AbilityScores;
+  proficiencies: Proficiencies;
+  generalStatus: GeneralStatus;
+  classes: ClassLevel[];
+  race: string;
+  background: Background;
+  speed: number;
+  armourClass: number;
+  hitDice: HitDie[];
+  treasures: Treasures;
+  equipment: EquipmentItem[];
+  proficiencyBonus: ProficiencyBonusOption;
+  savingThrows: SavingThrows;
+  collectedDice?: CollectedDice;
+  skillModifiers?: SkillModifiers;
+  weaponList: string[];
+  weapons?: Weapon[];
+  size: Size;
+  wearingArmour?: boolean;
+  usingShield?: boolean;
+  traits?: CharacterTrait[];
+  spellStats?: SpellStats;
+  alignment: Alignment;
+}
 
-export const SKILLS_IN_ORDER = [
-  'acrobatics',
-  'animalHandling',
-  'arcana',
-  'athletics',
-  'deception',
-  'history',
-  'insight',
-  'intimidation',
-  'investigation',
-  'medicine',
-  'nature',
-  'perception',
-  'performance',
-  'persuasion',
-  'religion',
-  'sleightOfHand',
-  'stealth',
-  'survival',
-];
+export interface Alignment {
+  lawfulness: 'lawful' | 'neutral' | 'chaotic';
+  goodness: 'good' | 'neutral' | 'evil';
+}
 
-export type Ability =
-  | 'strength'
-  | 'dexterity'
-  | 'constitution'
-  | 'intelligence'
-  | 'wisdom'
-  | 'charisma';
+export interface CharacterTrait {
+  name: string;
+  descriptionParagraphs: string[];
+  blurb?: string;
+  from: TraitSource;
+}
 
-export const ABILITIES_IN_ORDER: Ability[] = [ 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma' ];
+
+
+export interface Background {
+  name: string;
+  description: string;
+  proficiencyList?: ProficiencyList;
+  equipment: string[];
+  features?: string[];
+  traits?: { name?: string, description: string }[];
+  ideals?: { name?: string, description: string }[];
+  bonds?: { name?: string, description: string }[];
+  flaws?: { name?: string, description: string }[];
+}
+
+export interface ProficiencyList {
+  skills?: Skill[];
+  tools?: string[];
+  languages?: SpokenLanguage[];
+}
+
+export type TraitSource = Class | Race | any;

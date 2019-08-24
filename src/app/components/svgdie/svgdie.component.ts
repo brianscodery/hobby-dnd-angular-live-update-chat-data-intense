@@ -1,4 +1,4 @@
-import { DieNumber } from './../../interfaces/character';
+import { DieNumber } from '../../shared/common-interfaces-and-types';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

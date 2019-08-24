@@ -17,7 +17,7 @@ import {
   SpellStats,
   Character,
   ClassLevel
-} from '../../interfaces/character';
+} from '../../shared/common-interfaces-and-types';
 
 @Injectable( {
   providedIn: 'root'
