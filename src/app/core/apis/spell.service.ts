@@ -237,107 +237,144 @@ export class SpellService {
   }
 
 
-  getSorcererSpellStats( classLevel: ClassLevel ): SpellStats {
+  getSorcererSpellSlots( classLevel: ClassLevel ): number[] {
     let spellSlots: number[];
+    if ( classLevel === 1 ) {
+      spellSlots = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 2 ) {
+      spellSlots = [ 999, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 3 ) {
+      spellSlots = [ 999, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 4 ) {
+      spellSlots = [ 999, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 5 ) {
+      spellSlots = [ 999, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 6 ) {
+      spellSlots = [ 999, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 7 ) {
+      spellSlots = [ 999, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 8 ) {
+      spellSlots = [ 999, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 9 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 10 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
+    }
+    if ( classLevel === 11 || classLevel === 12 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 0, 0, 0 ];
+    }
+    if ( classLevel === 13 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+    }
+    if ( classLevel === 14 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+    }
+    if ( classLevel === 15 || classLevel === 16 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 0 ];
+    }
+    if ( classLevel === 17 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 1 ];
+    }
+    if ( classLevel === 18 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 3, 1, 1, 1, 1 ];
+    }
+    if ( classLevel === 19 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 3, 2, 1, 1, 1 ];
+    }
+    if ( classLevel === 20 ) {
+      spellSlots = [ 999, 4, 3, 3, 3, 3, 2, 2, 1, 1 ];
+    }
+    return spellSlots;
+  }
+  getOtherSorcererSpellStats( classLevel: ClassLevel ): Partial<SpellStats> {
     let spellsKnownNumber: number;
     let cantripsKnownNumber: number;
     if ( classLevel === 1 ) {
       cantripsKnownNumber = 4;
       spellsKnownNumber = 2;
-      spellSlots = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 2 ) {
       cantripsKnownNumber = 4;
       spellsKnownNumber = 3;
-      spellSlots = [ 999, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 3 ) {
       cantripsKnownNumber = 4;
       spellsKnownNumber = 4;
-      spellSlots = [ 999, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 4 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 5;
-      spellSlots = [ 999, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 5 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 6;
-      spellSlots = [ 999, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 6 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 7;
-      spellSlots = [ 999, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 7 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 8;
-      spellSlots = [ 999, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 8 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 9;
-      spellSlots = [ 999, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 9 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 10;
-      spellSlots = [ 999, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
     }
     if ( classLevel === 10 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 11;
-      spellSlots = [ 999, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
     }
     if ( classLevel === 11 || classLevel === 12 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 12;
-      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 0, 0, 0 ];
     }
     if ( classLevel === 13 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 13;
-      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
     }
     if ( classLevel === 14 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 13;
-      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
     }
     if ( classLevel === 15 || classLevel === 16 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 14;
-      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 0 ];
     }
     if ( classLevel === 17 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 1 ];
     }
     if ( classLevel === 18 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellSlots = [ 999, 4, 3, 3, 3, 3, 1, 1, 1, 1 ];
     }
     if ( classLevel === 19 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellSlots = [ 999, 4, 3, 3, 3, 3, 2, 1, 1, 1 ];
     }
     if ( classLevel === 20 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellSlots = [ 999, 4, 3, 3, 3, 3, 2, 2, 1, 1 ];
     }
-    return { spellsKnownNumber, cantripsKnownNumber, spellSlots } as SpellStats;
+    return { spellsKnownNumber, cantripsKnownNumber };
   }
 
-  getPaladinSpellStats( classLevel: ClassLevel, charismaModifier: number ): SpellStats {
-    const preparableSpells = Math.floor( charismaModifier + ( classLevel / 2 ) );
-    const spellsKnownNumber = 'no limit';
-    const cantripsKnownNumber = 0;
+  
+  getPaladinSpellSlots( classLevel: ClassLevel): number[] {
     let spellSlots: number[];
     if ( classLevel === 1 ) {
       spellSlots = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
@@ -373,27 +410,49 @@ export class SpellService {
       spellSlots = [ 0, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
     }
 
-    return { spellsKnownNumber, preparableSpells, cantripsKnownNumber, spellSlots } as SpellStats;
+    return spellSlots;
+  }
+  getOtherPaladinSpellStats( classLevel: ClassLevel, charismaModifier: number ): Partial<SpellStats> {
+    const preparableSpells = Math.floor( charismaModifier + ( classLevel / 2 ) );
+    const spellsKnownNumber = 'no limit';
+    const cantripsKnownNumber = 0;
+    return { spellsKnownNumber, preparableSpells, cantripsKnownNumber };
   }
 
-  getSingleClassSpellStats( character: Character, className: ClassName ): SpellStats {
+  getSingleClassSpellStats( character: Character, className: ClassName ): Partial<SpellStats> {
     const index = findIndex( character.classes, o => o.class === className );
     const level = character.classes[ index ].level;
+    let spellSlots: number[];
+    let spellStats: Partial<SpellStats>;
     switch ( className ) {
       case 'bard':
-        return this.getBardSpellStats( level );
+        spellSlots = this.getBardSpellSlots( level );
+        spellStats = this.getOtherBardSpellStats( level );
+        return { ...spellStats, spellSlots };
       case 'cleric':
-        return this.getClericSpellStats( level );
+        spellSlots = this.getClericSpellSlots( level );
+        spellStats = this.getOtherClericSpellStats( level );
+        return { ...spellStats, spellSlots };
       case 'druid':
-        return this.getDruidSpellStats( level );
+        spellSlots = this.getDruidSpellSlots( level );
+        spellStats = this.getOtherDruidSpellStats( level );
+        return { ...spellStats, spellSlots };
       case 'sorcerer':
-        return this.getSorcererSpellStats( level );
+        spellSlots = this.getSorcererSpellSlots( level );
+        spellStats = this.getOtherSorcererSpellStats( level );
+        return { ...spellStats, spellSlots };
       case 'wizard':
-        return this.getWizardSpellStats( level );
+        spellSlots = this.getWizardSpellSlots( level );
+        spellStats = this.getOtherWizardSpellStats( level );
+        return { ...spellStats, spellSlots };
       case 'paladin':
-        return this.getPaladinSpellStats( level, character.abilityScores.charisma.modifier );
+        spellSlots = this.getPaladinSpellSlots( level );
+        spellStats = this.getOtherPaladinSpellStats( level, character.abilityScores.charisma.modifier );
+        return { ...spellStats, spellSlots };
       case 'ranger':
-        return this.getRangerSpellStats( level );
+        spellSlots = this.getRangerSpellSlots( level );
+        spellStats = this.getOtherRangerSpellStats( level );
+        return { ...spellStats, spellSlots };
     }
   }
 
