@@ -30,7 +30,7 @@
 
           <mat-form-field class="class-input">
             <input matInput
-                   [value]="class.class"
+                   [value]="class.class | titlecase"
                    [disabled]="disabled">
             <mat-hint *ngIf="i===character.classes.length - 1"
                       align="start">Class</mat-hint>
