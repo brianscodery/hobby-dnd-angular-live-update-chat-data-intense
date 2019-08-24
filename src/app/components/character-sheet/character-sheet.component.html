@@ -295,7 +295,8 @@
                       tickInterval="1"
                       [(ngModel)]="hello"
                       color="accent"
-                      style="height: 20px;">
+                      style="height: 20px;"
+                      (change)="successSliderChange($event)">
           </mat-slider>
           <h6>Death Successes</h6>
         </div>

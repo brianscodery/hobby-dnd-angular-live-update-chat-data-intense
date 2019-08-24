@@ -7,7 +7,6 @@ import { DnDMathService } from '../../core/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { HitDie, TREASURES_IN_ORDER} from '../../shared/common-interfaces-and-types';
 import { CharacterService } from '../../core/character.service';
-
 @Component( {
   selector: 'app-character-sheet',
   templateUrl: './character-sheet.component.html',
@@ -91,4 +90,13 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
     this.characterService.update( characterName, { hitPoints } );
   }
 
+  successSliderChange( event ) {
+    if ( event.value === 3 ) {
+      const newHitPoints = 1;
+      const hitPoints = { ...this.character.hitPoints };
+      hitPoints.current = newHitPoints;
+      const characterName = this.character.name.toLowerCase();
+      this.characterService.update( characterName, { hitPoints } );
+    }
+  }
 }
