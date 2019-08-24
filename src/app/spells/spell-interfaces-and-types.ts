@@ -1,5 +1,5 @@
-export interface SpellInterfacesAndTypes {
-}
+import { Time } from '../shared/common-interfaces-and-types';
+import { ClassName } from '../classes/class-interfaces-and-types';
 
 export interface SpellStats {
   spellsKnownNumber?: number | 'no limit';
@@ -25,7 +25,7 @@ export type MagicSchool =
 
 export interface Spell {
   castingTime: Time;
-  classes: Class[];
+  classes: ClassName[];
   components: MagicComponent[];
   concentration: boolean;
   description: string[];
@@ -43,3 +43,6 @@ export interface Spell {
 }
 
 export type MagicComponent = 'verbal' | 'somatic' | 'material';
+
+
+export type SpellLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;

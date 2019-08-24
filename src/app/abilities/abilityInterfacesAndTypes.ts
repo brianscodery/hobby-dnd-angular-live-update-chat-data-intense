@@ -1,5 +1,3 @@
-export interface Abilities {
-}
 
 export type Skill =
   | 'acrobatics'
@@ -110,6 +108,12 @@ export class SkillModifiers {
   persuasion: number;
   constructor () { }
 };
+
+export class SavingThrow {
+  savingThrow: number;
+  proficient ?: boolean;
+  constructor(){}
+}
 
 export class SavingThrows {
   dexterity: SavingThrow;

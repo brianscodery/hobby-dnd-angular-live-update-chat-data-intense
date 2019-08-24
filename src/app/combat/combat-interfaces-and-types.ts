@@ -1,8 +1,11 @@
-export interface CombatInterfacesAndTypes {
+import { Cost, DieNumber } from './../shared/common-interfaces-and-types';
+
+
+export interface ArmourClass {
+  baseAC?: number | null;
+  dexBonus: boolean;
+  maxBonus: number;
 }
-
-
-
 
 export type WeaponRange = 'melee' | 'ranged';
 export type WeaponCategory = 'simple' | 'martial';
@@ -116,7 +119,16 @@ export class Armour {
   stealthDisadvantage?: boolean;
   strengthMinimum?: number;
   magicalBonus?: number;
-  constructor ( name: string, wtCat: ArmourWeightCategory, ac: ArmourClass, cost: Cost, weight: number, stlthDis?: boolean, strMin?: number, magBonus?: number ) {
+  constructor (
+    name: string,
+    wtCat: ArmourWeightCategory,
+    ac: ArmourClass,
+    cost: Cost,
+    weight: number,
+    stlthDis?: boolean,
+    strMin?: number,
+    magBonus?: number )
+  {
     this.name = name;
     this.weightCategory = wtCat;
     this.armourClass = ac;

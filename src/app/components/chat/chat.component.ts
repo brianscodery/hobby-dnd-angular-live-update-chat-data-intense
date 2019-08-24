@@ -1,11 +1,11 @@
-import { Character, SpokenLanguage } from '../../shared/common-interfaces-and-types';
+import { Character } from '../../characters/character-interfaces-and-types';
+import { SpokenLanguage } from '../../shared/common-interfaces-and-types';
 import { Message, ChatService } from '../../core/chat.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { firestore } from 'firebase';
 import isSameDay from 'date-fns/is_same_day';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 @Component( {
   selector: 'app-chat',

@@ -1,20 +1,19 @@
+import { ClassAndLevel } from './../classes/class-interfaces-and-types';
 import {
-  AbilityScores,
   SavingThrows,
-  Character,
-  Ability,
-  SkillModifiers,
   SKILL_ABILITIES,
+  AbilityScores,
+  SkillModifiers,
+  Ability,
   Skill,
-  AbilityScore,
-  ClassLevel,
   ProficiencyBonusOption,
-  SpellLevel
-} from '../shared/common-interfaces-and-types';
+  SavingThrow
+} from './../abilities/abilityInterfacesAndTypes';
+import { Character } from '../characters/character-interfaces-and-types';
+
 import { Injectable } from '@angular/core';
 import forEach from 'lodash-es/forEach';
 import cloneDeep from 'lodash-es/cloneDeep';
-
 
 @Injectable( {
   providedIn: 'root',
@@ -70,8 +69,8 @@ export class DnDMathService {
 
   public getProficienctBonus( character: Character ): ProficiencyBonusOption {
     let characterLevel = 0;
-    character.classes.forEach( ( classLevel: ClassLevel ) => {
-      characterLevel += classLevel.level;
+    character.classes.forEach( ( classAndLevel: ClassAndLevel ) => {
+      characterLevel += classAndLevel.level;
     } );
     return Math.ceil( characterLevel / 4 ) + 1 as ProficiencyBonusOption;
   }

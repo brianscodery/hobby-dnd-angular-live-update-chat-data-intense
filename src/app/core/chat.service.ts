@@ -1,10 +1,11 @@
-import { Character, SpokenLanguage } from '../shared/common-interfaces-and-types';
+import {  SpokenLanguage } from '../shared/common-interfaces-and-types';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference, DocumentReference } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { firestore } from 'firebase';
 import Timestamp = firestore.Timestamp;
 import { map } from 'rxjs/operators';
+import { Character } from '../characters/character-interfaces-and-types';
 
 export interface Message {
   from: string;

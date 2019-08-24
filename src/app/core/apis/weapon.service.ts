@@ -1,6 +1,6 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
-import { Weapon, WeaponProperty, Armour } from '../../shared/common-interfaces-and-types';
+import { Weapon, WeaponProperty, Armour } from '../../combat/combat-interfaces-and-types';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable( {

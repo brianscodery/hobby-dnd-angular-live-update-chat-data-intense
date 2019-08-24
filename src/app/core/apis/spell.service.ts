@@ -1,3 +1,6 @@
+import { Character } from '../../characters/character-interfaces-and-types';
+import { ClassName, ClassLevel, ClassAndLevel } from './../../classes/class-interfaces-and-types';
+import { Spell, MagicSchool, MagicComponent, SpellLevel, SpellStats } from './../../spells/spell-interfaces-and-types';
 // tslint:disable: no-switch-case-fall-through
 
 
@@ -7,17 +10,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import {
-  Class,
-  MagicComponent,
-  MagicSchool,
-  Spell,
-  SpellLevel,
   Time,
   TimeUnit,
-  SpellStats,
-  Character,
-  ClassLevel
 } from '../../shared/common-interfaces-and-types';
+
 
 @Injectable( {
   providedIn: 'root'
@@ -32,7 +28,7 @@ export class SpellService {
     console.log( 'here i am!!!' );
   }
   addSpellsToDB() {
-    let next = "https://api-beta.open5e.com/spells/?format=json&page=8";
+    const next = 'https://api-beta.open5e.com/spells/?format=json&page=8';
     const spellsCollection = this.afs.collection<Spell>( 'spells' );
 
     this.http
@@ -43,7 +39,7 @@ export class SpellService {
         results.forEach( spell => {
           console.log( spell );
           const castingTime = this.getCastingTime( spell.casting_time );
-          const classes: Class[] = spell.dnd_class.toLowerCase().split( ', ' );
+          const classes: ClassName[] = spell.dnd_class.toLowerCase().split( ', ' );
           const concentration = this.yesNoToBoolean( spell.concentration );
           const description = this.getDescription( spell );
           const components = this.getMagicComponents( spell );
@@ -139,18 +135,18 @@ export class SpellService {
 
   getMultiClassSpellLevel( character: Character ) {
     let multiClassLevel = 0;
-    character.classes.forEach( ( classLevel: ClassLevel ) => {
-      switch ( classLevel.class ) {
+    character.classes.forEach( ( classAndLevel: ClassAndLevel ) => {
+      switch ( classAndLevel.class ) {
         case 'bard':
         case 'cleric':
         case 'druid':
         case 'sorcerer':
         case 'wizard':
-          multiClassLevel += classLevel.level;
+          multiClassLevel += classAndLevel.level;
           return;
         case 'paladin':
         case 'ranger':
-          multiClassLevel += Math.floor( classLevel.level / 2 );
+          multiClassLevel += Math.floor( classAndLevel.level / 2 );
       }
     } );
     return multiClassLevel;

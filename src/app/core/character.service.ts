@@ -1,11 +1,14 @@
+import { Weapon, DieAndDamage } from './../combat/combat-interfaces-and-types';
+import { Character } from '../characters/character-interfaces-and-types';
 import { SpellService } from './apis/spell.service';
-import { HitDie, DieNumber, Weapon, Character, DieAndDamage } from '../shared/common-interfaces-and-types';
+import { HitDie, DieNumber } from '../shared/common-interfaces-and-types';
 import { DnDMathService } from './dnd-math.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
+
 
 @Injectable( {
   providedIn: 'root',

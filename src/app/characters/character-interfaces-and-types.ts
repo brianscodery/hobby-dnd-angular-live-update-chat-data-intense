@@ -1,3 +1,17 @@
+import { Race } from './../races/race-interfaces-and-types';
+import { SpellStats } from './../spells/spell-interfaces-and-types';
+import { Weapon } from './../combat/combat-interfaces-and-types';
+import { ClassAndLevel, ClassName } from './../classes/class-interfaces-and-types';
+import {
+  AbilityScores,
+  Proficiencies,
+  ProficiencyBonusOption,
+  SavingThrows,
+  SkillModifiers,
+  Skill
+} from './../abilities/abilityInterfacesAndTypes';
+import { SpokenLanguage, HitDie, Treasures, EquipmentItem, CollectedDice, Size } from '../shared/common-interfaces-and-types';
+
 
 
 export type GeneralStatus =
@@ -23,7 +37,7 @@ export interface Character {
   abilityScores: AbilityScores;
   proficiencies: Proficiencies;
   generalStatus: GeneralStatus;
-  classes: ClassLevel[];
+  classes: ClassAndLevel[];
   race: string;
   background: Background;
   speed: number;
@@ -77,4 +91,4 @@ export interface ProficiencyList {
   languages?: SpokenLanguage[];
 }
 
-export type TraitSource = Class | Race | any;
+export type TraitSource = ClassName | Race | any;

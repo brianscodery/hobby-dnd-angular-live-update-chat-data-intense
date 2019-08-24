@@ -1,19 +1,11 @@
+import { Weapon } from './../../combat/combat-interfaces-and-types';
+import { Ability, ABILITIES_IN_ORDER, SKILLS_IN_ORDER } from './../../abilities/abilityInterfacesAndTypes';
+import { Character } from './../../characters/character-interfaces-and-types';
 import { SpellService } from '../../core/apis/spell.service';
 import { WeaponService } from '../../core/apis/weapon.service';
 import { DnDMathService } from '../../core/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  Character,
-  AbilityScores,
-  Ability,
-  HitDie,
-  SavingThrows,
-  ABILITIES_IN_ORDER,
-  TREASURES_IN_ORDER,
-  SKILLS_IN_ORDER,
-  Weapon
-} from '../../shared/common-interfaces-and-types';
-
+import { HitDie, TREASURES_IN_ORDER} from '../../shared/common-interfaces-and-types';
 
 @Component( {
   selector: 'app-character-sheet',

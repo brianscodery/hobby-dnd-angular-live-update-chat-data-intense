@@ -2,6 +2,26 @@
 
 
 
+export const TREASURES_IN_ORDER = [ 'cp', 'sp', 'ep', 'gp', 'pp' ];
+
+
+export interface Treasures {
+  cp: number;
+  sp: number;
+  ep: number;
+  gp: number;
+  pp: number;
+}
+
+export type Treasure = 'cp' | 'sp' | 'ep' | 'gp' | 'pp';
+
+export interface EquipmentItem {
+  name: string;
+  description: string;
+  quantity?: number;
+}
+
+
 
 export type DieNumber = 4 | 6 | 8 | 10 | 12 | 20;
 
@@ -47,17 +67,12 @@ export interface Cost {
   quantity: number;
 }
 
-export interface ArmourClass {
-  baseAC?: number | null;
-  dexBonus: boolean;
-  maxBonus: number;
-}
+
 
 export interface Time {
   quantity?: number;
   denomination: TimeUnit;
 }
-export type SpellLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 export type TimeUnit =
   | 'action'

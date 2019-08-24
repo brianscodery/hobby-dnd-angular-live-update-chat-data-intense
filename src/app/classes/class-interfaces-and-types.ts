@@ -1,4 +1,4 @@
-
+import { SpellLevel } from './../spells/spell-interfaces-and-types';
 
 export interface ClassAndLevel {
   class: ClassName;
