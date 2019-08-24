@@ -90,13 +90,17 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
     this.characterService.update( characterName, { hitPoints } );
   }
 
-  successSliderChange( event ) {
+  sliderChange( type: string, event ) {
+    const characterName = this.character.name.toLowerCase();
     if ( event.value === 3 ) {
-      const newHitPoints = 1;
-      const hitPoints = { ...this.character.hitPoints };
-      hitPoints.current = newHitPoints;
-      const characterName = this.character.name.toLowerCase();
-      this.characterService.update( characterName, { hitPoints } );
+      if ( type === 'success' ) {
+        const newHitPoints = 1;
+        const hitPoints = { ...this.character.hitPoints };
+        hitPoints.current = newHitPoints;
+        this.characterService.update( characterName, { hitPoints } );
+      } else if ( type === 'failure' ) {
+        setTimeout(()=>alert( 'You are now dead. Like, dead dead. Have a nice day.' ),200);
+      }
     }
   }
 }

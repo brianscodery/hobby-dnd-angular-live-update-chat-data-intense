@@ -296,7 +296,7 @@
                       [(ngModel)]="hello"
                       color="accent"
                       style="height: 20px;"
-                      (change)="successSliderChange($event)">
+                      (change)="sliderChange('success', $event)">
           </mat-slider>
           <h6>Death Successes</h6>
         </div>
@@ -312,7 +312,8 @@
                       tickInterval="1"
                       [(ngModel)]="hello2"
                       color="warn"
-                      style="height: 20px;">
+                      style="height: 20px;"
+                       (change)="sliderChange('failure', $event)">
           </mat-slider>
           <h6>Death Failures</h6>
 

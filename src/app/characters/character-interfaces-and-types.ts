@@ -57,6 +57,7 @@ export interface Character {
   weaponList: string[];
   weapons?: Weapon[];
   wearingArmour?: boolean;
+  deceased?: boolean;
 }
 
 export interface Alignment {
