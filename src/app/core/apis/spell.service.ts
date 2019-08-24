@@ -1,6 +1,7 @@
+import { SpellStats } from './../../interfaces/character';
 import { Character } from '../../characters/character-interfaces-and-types';
 import { ClassName, ClassLevel, ClassAndLevel } from './../../classes/class-interfaces-and-types';
-import { Spell, MagicSchool, MagicComponent, SpellLevel, SpellStats } from './../../spells/spell-interfaces-and-types';
+import { Spell, MagicSchool, MagicComponent, SpellLevel, SpellStats, SPELLCASTER_CLASSES } from './../../spells/spell-interfaces-and-types';
 // tslint:disable: no-switch-case-fall-through
 
 
@@ -8,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { findIndex } from 'lodash-es';
 
 import {
   Time,
@@ -133,6 +135,31 @@ export class SpellService {
     return assureLowercase === 'yes' ? true : false;
   }
 
+  getSpellStats( character: Character ): SpellStats | null {
+    const characterSpellcastingClasses: ClassName[] = this.getCharacterSpellcastingClasses( character );
+    if ( !characterSpellcastingClasses.length ) {
+      return null;
+    }
+    if ( characterSpellcastingClasses.length === 1 ) {
+      return this.getSingleClassSpellStats( character, characterSpellcastingClasses[ 0 ] );
+    }
+    else {
+      return this.getMultiClassSpellStats( character );
+    }
+  }
+
+  getCharacterSpellcastingClasses( character ): ClassName[] {
+    const classes: ClassAndLevel[] = character.classes;
+    return classes
+      .map( ( classAndLevel: ClassAndLevel ) => classAndLevel.class as ClassName )
+      .filter( ( className: ClassName ) => SPELLCASTER_CLASSES.includes( className ) );
+  }
+
+  // isMultiClassSpellLevel( character: Character ): boolean {
+  //   const characterSpellcastingClasses: ClassName[] = this.getCharacterSpellcastingClasses( character );
+  //   return characterSpellcastingClasses.length > 1 ? true : false;
+  // }
+
   getMultiClassSpellLevel( character: Character ) {
     let multiClassLevel = 0;
     character.classes.forEach( ( classAndLevel: ClassAndLevel ) => {
@@ -201,8 +228,8 @@ export class SpellService {
     return [ ...multiClassSpellSlots ] as SpellLevel[];
   }
 
-  
-  getSorcererSpellSlots( classLevel: number ): SpellStats {
+
+  getSorcererSpellStats( classLevel: ClassLevel ): SpellStats {
     let spellsPerLongRest: number[];
     let spellsKnownNumber: number;
     let cantripsKnownNumber: number;
@@ -304,7 +331,7 @@ export class SpellService {
     return { spellsKnownNumber, cantripsKnownNumber, spellsPerLongRest } as SpellStats;
   }
 
-  getPaladinSpellSlots( classLevel: number, charismaModifier: number ): SpellStats {
+  getPaladinSpellStats( classLevel: ClassLevel, charismaModifier: number ): SpellStats {
     const preparableSpells = Math.floor( charismaModifier + ( classLevel / 2 ) );
     const spellsKnownNumber = 'no limit';
     const cantripsKnownNumber = 0;
@@ -342,8 +369,32 @@ export class SpellService {
     if ( classLevel === 19 || classLevel === 20 ) {
       spellsPerLongRest = [ 0, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
     }
- 
+
     return { spellsKnownNumber, preparableSpells, cantripsKnownNumber, spellsPerLongRest } as SpellStats;
   }
+
+  getSingleClassSpellStats( character: Character, className: ClassName ): SpellStats {
+    const index = findIndex( character.classes, o => o.class === className );
+    const level = character.classes[ index ].level;
+    switch ( className ) {
+      case 'bard':
+        return this.getBardSpellStats( level );
+      case 'cleric':
+        return this.getClericSpellStats( level );
+      case 'druid':
+        return this.getDruidSpellStats( level );
+      case 'sorcerer':
+        return this.getSorcererSpellStats( level );
+      case 'wizard':
+        return this.getWizardSpellStats( level );
+      case 'paladin':
+        return this.getPaladinSpellStats( level, character.abilityScores.charisma.modifier );
+      case 'ranger':
+        return this.getRangerSpellStats( level );
+    }
+  }
+
+
+
 }
 

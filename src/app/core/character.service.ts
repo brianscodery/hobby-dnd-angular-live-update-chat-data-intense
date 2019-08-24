@@ -17,7 +17,11 @@ export class CharacterService {
   partyMembers$: Observable<Character[]>;
 
 
-  constructor ( private afs: AngularFirestore, private dndMathService: DnDMathService, private spellService: SpellService ) {
+  constructor (
+    private afs: AngularFirestore,
+    private dndMathService: DnDMathService,
+    private spellService: SpellService )
+  {
     this.partyMembers$ = afs
       .collection<Character>( 'partyMembers' )
       .valueChanges()
@@ -28,6 +32,14 @@ export class CharacterService {
             return character;
           } );
           console.log( characters );
+          return characters;
+        } ),
+
+        map( ( characters: Character[] ) => {
+          characters.forEach(
+            ( character: Character ) => {
+              character.proficiencyBonus = this.dndMathService.getProficienctBonus( character );
+            } );
           return characters;
         } ),
 
@@ -56,7 +68,7 @@ export class CharacterService {
           console.log( characters );
           return characters;
         } ),
-
+        
         map( ( characters: Character[] ) => {
           characters.forEach(
             ( character: Character ) => {
@@ -73,23 +85,14 @@ export class CharacterService {
           return characters;
         } ),
 
+
         map( ( characters: Character[] ) => {
           characters.forEach(
             ( character: Character ) => {
-              character.proficiencyBonus = this.dndMathService.getProficienctBonus( character );
+              this.addSpellSlots(character);
             } );
           return characters;
         } ),
-
-        // map( ( characters: Character[] ) => {
-        //   characters.forEach(
-        //     ( character: Character ) => {
-        //       const multiclassLevel = this.spellService.getMultiClassSpellLevel( character );
-        //       character.spellStats.multiClassSpellsPerDay =
-        //         this.spellService.getMultiClassSpellSlots( multiclassLevel );
-        //     } );
-        //   return characters;
-        // } ),
       );
   }
 
@@ -212,6 +215,15 @@ export class CharacterService {
     console.log( character.weapons );
 
   }
+
+  private addSpellSlots( character: Character ): void {
+    character.spellStats = this.spellService.getSpellStats( character );
+  }
+
+
+
+
+
 }
 
 

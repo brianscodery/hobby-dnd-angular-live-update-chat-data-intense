@@ -51,8 +51,11 @@ export class DnDMathService {
 
   public getSkillModifiers( character: Character ): SkillModifiers {
     const proficiencies = [ ...character.proficiencies.skills ];
+    console.log(proficiencies);
     const proficiencyBonus = character.proficiencyBonus;
+    console.log(proficiencyBonus);
     const abilityScores: AbilityScores = character.abilityScores;
+    console.log(abilityScores);
     const skillModifiers: SkillModifiers = new SkillModifiers();
     console.log( skillModifiers );
     forEach( SKILL_ABILITIES, ( ability: Ability, skill: Skill ) => {
@@ -64,7 +67,7 @@ export class DnDMathService {
     console.log( skillModifiers );
     return skillModifiers;
   }
-
+  
   
 
   public getProficienctBonus( character: Character ): ProficiencyBonusOption {

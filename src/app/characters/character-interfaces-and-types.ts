@@ -28,35 +28,35 @@ export interface HitPoints {
 }
 
 export interface Character {
-  name: string;
-  userId: string;
+  abilityScores: AbilityScores;
+  alignment: Alignment;
+  armourClass: number;
+  background: Background;
+  classes: ClassAndLevel[];
+  collectedDice?: CollectedDice;
+  equipment: EquipmentItem[];
+  generalStatus: GeneralStatus;
+  hitDice: HitDie[];
   hitPoints: HitPoints;
   items: string[];
-  languages: SpokenLanguage[];
   knowledge: string[];
-  abilityScores: AbilityScores;
+  languages: SpokenLanguage[];
+  name: string;
   proficiencies: Proficiencies;
-  generalStatus: GeneralStatus;
-  classes: ClassAndLevel[];
-  race: string;
-  background: Background;
-  speed: number;
-  armourClass: number;
-  hitDice: HitDie[];
-  treasures: Treasures;
-  equipment: EquipmentItem[];
   proficiencyBonus: ProficiencyBonusOption;
+  race: string;
   savingThrows: SavingThrows;
-  collectedDice?: CollectedDice;
+  size: Size;
   skillModifiers?: SkillModifiers;
+  speed: number;
+  spellStats?: SpellStats;
+  traits?: CharacterTrait[];
+  treasures: Treasures;
+  userId: string;
+  usingShield?: boolean;
   weaponList: string[];
   weapons?: Weapon[];
-  size: Size;
   wearingArmour?: boolean;
-  usingShield?: boolean;
-  traits?: CharacterTrait[];
-  spellStats?: SpellStats;
-  alignment: Alignment;
 }
 
 export interface Alignment {

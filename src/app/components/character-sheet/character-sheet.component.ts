@@ -73,8 +73,8 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
     this.step--;
   }
 
+  showCharacter() {
+  console.log(this.character);
+}
 
-  testSarahsThing() {
-   console.log( this.spellService.getSorcererSpellSlots( 20 ));
-  }
 }

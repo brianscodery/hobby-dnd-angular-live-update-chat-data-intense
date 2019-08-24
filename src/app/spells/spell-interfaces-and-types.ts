@@ -4,11 +4,12 @@ import { ClassName } from '../classes/class-interfaces-and-types';
 export interface SpellStats {
   spellsKnownNumber?: number | 'no limit';
   cantripsKnownNumber?: number;
-  spellsPerLongRest?: SpellLevel[];
-  spellsRemaining?: SpellLevel[];
-  multiClassSpellsPerDay?: SpellLevel[];
+  spellsPerLongRest?: number[];
+  spellsRemaining?: number[];
+  multiClassSpellsPerDay?: number[];
   spells?: string[];
   preparableSpells?: number;
+  preparedSpells?: string[];
 }
 
 export type MagicSchool =
@@ -46,3 +47,16 @@ export type MagicComponent = 'verbal' | 'somatic' | 'material';
 
 
 export type SpellLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+
+
+
+export const SPELLCASTER_CLASSES = [
+  'bard',
+  'cleric',
+  'druid',
+  'sorcerer',
+  'wizard',
+  'paladin',
+  'ranger'
+];
