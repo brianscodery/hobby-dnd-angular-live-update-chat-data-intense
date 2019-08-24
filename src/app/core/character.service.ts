@@ -4,7 +4,7 @@ import { SpellService } from './apis/spell.service';
 import { HitDie, DieNumber } from '../shared/common-interfaces-and-types';
 import { DnDMathService } from './dnd-math.service';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -15,15 +15,16 @@ import cloneDeep from 'lodash-es/cloneDeep';
 } )
 export class CharacterService {
   partyMembers$: Observable<Character[]>;
-
+  charactersCollectionRef: AngularFirestoreCollection<Character>;
 
   constructor (
     private afs: AngularFirestore,
     private dndMathService: DnDMathService,
     private spellService: SpellService )
   {
-    this.partyMembers$ = afs
-      .collection<Character>( 'partyMembers' )
+    this.charactersCollectionRef = afs
+      .collection<Character>( 'partyMembers' );
+    this.partyMembers$ = this.charactersCollectionRef
       .valueChanges()
       .pipe(
         map( characters => {
@@ -220,7 +221,9 @@ export class CharacterService {
     character.spellStats = this.spellService.getSpellStats( character );
   }
 
-
+  update( characterName: string, updateObject ): void{
+    this.charactersCollectionRef.doc( characterName ).update( updateObject );
+}
 
 
 

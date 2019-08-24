@@ -6,6 +6,7 @@ import { WeaponService } from '../../core/apis/weapon.service';
 import { DnDMathService } from '../../core/dnd-math.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { HitDie, TREASURES_IN_ORDER} from '../../shared/common-interfaces-and-types';
+import { CharacterService } from '../../core/character.service';
 
 @Component( {
   selector: 'app-character-sheet',
@@ -26,7 +27,12 @@ export class CharacterSheetComponent implements OnInit {
   step = 0;
   flawsText = '';
 
-  constructor ( private dndMathService: DnDMathService, private weaponService: WeaponService, private spellService: SpellService ) { }
+  constructor (
+    private dndMathService: DnDMathService,
+    private weaponService: WeaponService,
+    private spellService: SpellService,
+    private characterService: CharacterService,
+  ) { }
 
   ngOnInit() {
     this.character.background.flaws.forEach( flaw => this.flawsText += flaw.description + '\n' );
@@ -76,5 +82,13 @@ Passive Wisdom: ${this.character.abilityScores.wisdom.passiveScore }`;
   showCharacter() {
   console.log(this.character);
 }
+
+  updateCurrentHitPoints( event ) {
+    const newHitPoints = parseInt(event.target.value, 10);
+    const hitPoints = { ...this.character.hitPoints };
+    hitPoints.current = newHitPoints;
+    const characterName = this.character.name.toLowerCase();
+    this.characterService.update( characterName, { hitPoints } );
+  }
 
 }

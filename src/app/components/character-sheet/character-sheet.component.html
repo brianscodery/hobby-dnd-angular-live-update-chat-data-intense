@@ -63,9 +63,9 @@
         <mat-form-field class="class-row">
           <input matInput
                  placeholder="Alignment">
-                {{(character.alignment.lawfulness | titlecase) + ' ' + (character.alignment.goodness | titlecase)}}
+          {{(character.alignment.lawfulness | titlecase) + ' ' + (character.alignment.goodness | titlecase)}}
 
-                </mat-form-field>
+        </mat-form-field>
 
         <mat-form-field class="class-row">
           <input matInput
@@ -236,14 +236,16 @@
 
         Hit Points
       </h5>
-      <div
-           style="width: 100%; display: flex; flex-direction: row; align-items: center; justify-items: space-between;">
+      <div fxLayout="row"
+           fxLayoutAlign="space-between center"
+           style="width: 100%">
         <div>
 
           <mat-form-field style="width: 50px;">
             <input matInput
                    [value]="character.hitPoints.current"
-                   style="width: 50px;">
+                   style="width: 50px;"
+                   (change)="updateCurrentHitPoints($event)">
             <mat-hint>Current</mat-hint>
           </mat-form-field>
         </div>
@@ -408,8 +410,7 @@
           <mat-form-field class="weapon-damage-type">
             <input matInput
                    [placeholder]="i === 0 ? 'DAMAGE / TYPE' : ''"
-                   [value]="weapon.dieAndDamage[weapon.currentNumberOfHands]"
-                   >
+                   [value]="weapon.dieAndDamage[weapon.currentNumberOfHands]">
             <button mat-button
                     matSuffix
                     mat-icon-button
@@ -441,18 +442,21 @@
     <div style="width: 100%; height: 100%;"
          fxLayout="column"
          fxLayoutAlign="start center">
-         <h5 style="font-size: .75rem; text-decoration: underline; margin: 0;">Spells</h5>
-         <div fxLayout="row" fxLayoutAlign="space-around start" style="width: 100%; height: 100%">
+      <h5 style="font-size: .75rem; text-decoration: underline; margin: 0;">Spells</h5>
+      <div fxLayout="row"
+           fxLayoutAlign="space-around start"
+           style="width: 100%; height: 100%">
 
-           <ng-container *ngFor="let spellSlotLevel of character.multiClassSpellSlots; let i = index;">
-             
-             <mat-form-field *ngIf="spellSlotLevel !== 0 ||(i<=5 && i>0)" style="width: 10%;">
-                <input matInput
-                [value]="spellSlotLevel">
-                <mat-hint style="width:10%;">{{'L' + i}}</mat-hint>
-              </mat-form-field>
-            </ng-container>
-          </div>
+        <ng-container *ngFor="let spellSlotLevel of character.multiClassSpellSlots; let i = index;">
+
+          <mat-form-field *ngIf="spellSlotLevel !== 0 ||(i<=5 && i>0)"
+                          style="width: 10%;">
+            <input matInput
+                   [value]="spellSlotLevel">
+            <mat-hint style="width:10%;">{{'L' + i}}</mat-hint>
+          </mat-form-field>
+        </ng-container>
+      </div>
     </div>
   </mat-grid-tile>
 
@@ -546,8 +550,8 @@
       <mat-form-field class="example-full-width">
         <textarea matInput
                   placeholder="Flaws">
-                  {{flawsText}}
-                </textarea>
+        {{flawsText}}
+        </textarea>
       </mat-form-field>
     </form>
   </mat-grid-tile>
