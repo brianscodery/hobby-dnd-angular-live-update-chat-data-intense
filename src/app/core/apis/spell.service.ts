@@ -179,198 +179,201 @@ export class SpellService {
     return multiClassLevel;
   }
 
-  getMultiClassSpellSlots( multiClassSpellLevel: number ): SpellLevel[] {
-    const multiClassSpellSlots: number[] = [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
-    switch ( true ) {
-      case multiClassSpellLevel === 1:
-        multiClassSpellSlots[ 1 ] = 2;
-        break;
-      case multiClassSpellLevel === 2:
-        multiClassSpellSlots[ 1 ] = 3;
-        break;
-      case multiClassSpellLevel >= 3:
-        multiClassSpellSlots[ 1 ] = 4;
-        multiClassSpellSlots[ 2 ] = 2;
-      case multiClassSpellLevel >= 4:
-        multiClassSpellSlots[ 2 ] = 3;
-      case multiClassSpellLevel >= 5:
-        multiClassSpellSlots[ 3 ] = 2;
-      case multiClassSpellLevel >= 5:
-        multiClassSpellSlots[ 3 ] = 2;
-      case multiClassSpellLevel >= 6:
-        multiClassSpellSlots[ 3 ] = 3;
-      case multiClassSpellLevel >= 7:
-        multiClassSpellSlots[ 4 ] = 1;
-      case multiClassSpellLevel >= 8:
-        multiClassSpellSlots[ 4 ] = 2;
-      case multiClassSpellLevel >= 9:
-        multiClassSpellSlots[ 4 ] = 3;
-        multiClassSpellSlots[ 5 ] = 1;
-      case multiClassSpellLevel >= 10:
-        multiClassSpellSlots[ 5 ] = 2;
-      case multiClassSpellLevel >= 11:
-        multiClassSpellSlots[ 6 ] = 1;
-      case multiClassSpellLevel >= 13:
-        multiClassSpellSlots[ 7 ] = 1;
-      case multiClassSpellLevel >= 15:
-        multiClassSpellSlots[ 8 ] = 1;
-      case multiClassSpellLevel >= 17:
-        multiClassSpellSlots[ 9 ] = 1;
-      case multiClassSpellLevel >= 18:
-        multiClassSpellSlots[ 5 ] = 3;
-      case multiClassSpellLevel >= 19:
-        multiClassSpellSlots[ 6 ] = 2;
-      case multiClassSpellLevel === 20:
-        multiClassSpellSlots[ 7 ] = 2;
-      default:
-        break;
+  getMultiClassSpellSlots( multiClassSpellLevel: number ): number[] {
+    const level = multiClassSpellLevel;
+    let spellSlots: number[] = [];
+    if ( level === 1 ) {
+       spellSlots = [ 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
-    return [ ...multiClassSpellSlots ] as SpellLevel[];
+    if ( level === 2 ) {
+       spellSlots = [ 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 3 ) {
+       spellSlots = [ 0, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 4 ) {
+       spellSlots = [ 0, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 5 ) {
+       spellSlots = [ 0, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 6 ) {
+       spellSlots = [ 0, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 7 ) {
+       spellSlots = [ 0, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 8 ) {
+       spellSlots = [ 0, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
+    }
+    if ( level === 9 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
+    }
+    if ( level === 10 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
+    }
+    if ( level === 11 || level === 12 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 2, 1, 0, 0, 0 ];
+    }
+    if ( level === 13 || level === 14 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+    }
+    if ( level === 15 || level === 16 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 2, 1, 1, 1, 0 ];
+    }
+    if ( level === 17 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 2, 1, 1, 1, 1 ];
+    }
+    if ( level === 18 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 3, 1, 1, 1, 1 ];
+    }
+    if ( level === 19 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 3, 2, 1, 1, 1 ];
+    }
+    if ( level === 20 ) {
+       spellSlots = [ 0, 4, 3, 3, 3, 3, 2, 2, 1, 1 ];
+    }
+    return spellSlots;
   }
 
 
   getSorcererSpellStats( classLevel: ClassLevel ): SpellStats {
-    let spellsPerLongRest: number[];
+    let spellSlots: number[];
     let spellsKnownNumber: number;
     let cantripsKnownNumber: number;
     if ( classLevel === 1 ) {
       cantripsKnownNumber = 4;
       spellsKnownNumber = 2;
-      spellsPerLongRest = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
-    }
-    if ( classLevel === 1 ) {
-      cantripsKnownNumber = 4;
-      spellsKnownNumber = 2;
-      spellsPerLongRest = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 2 ) {
       cantripsKnownNumber = 4;
       spellsKnownNumber = 3;
-      spellsPerLongRest = [ 999, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 3 ) {
       cantripsKnownNumber = 4;
       spellsKnownNumber = 4;
-      spellsPerLongRest = [ 999, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 4 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 5;
-      spellsPerLongRest = [ 999, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 5 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 6;
-      spellsPerLongRest = [ 999, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 6 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 7;
-      spellsPerLongRest = [ 999, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 7 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 8;
-      spellsPerLongRest = [ 999, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 8 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 9;
-      spellsPerLongRest = [ 999, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 9 ) {
       cantripsKnownNumber = 5;
       spellsKnownNumber = 10;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
     }
     if ( classLevel === 10 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 11;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
     }
     if ( classLevel === 11 || classLevel === 12 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 12;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 0, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 0, 0, 0 ];
     }
     if ( classLevel === 13 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 13;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
     }
     if ( classLevel === 14 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 13;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 0, 0 ];
     }
     if ( classLevel === 15 || classLevel === 16 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 14;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 0 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 0 ];
     }
     if ( classLevel === 17 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 1 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 2, 1, 1, 1, 1 ];
     }
     if ( classLevel === 18 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 3, 1, 1, 1, 1 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 3, 1, 1, 1, 1 ];
     }
     if ( classLevel === 19 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 3, 2, 1, 1, 1 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 3, 2, 1, 1, 1 ];
     }
     if ( classLevel === 20 ) {
       cantripsKnownNumber = 6;
       spellsKnownNumber = 15;
-      spellsPerLongRest = [ 999, 4, 3, 3, 3, 3, 2, 2, 1, 1 ];
+      spellSlots = [ 999, 4, 3, 3, 3, 3, 2, 2, 1, 1 ];
     }
-    return { spellsKnownNumber, cantripsKnownNumber, spellsPerLongRest } as SpellStats;
+    return { spellsKnownNumber, cantripsKnownNumber, spellSlots } as SpellStats;
   }
 
   getPaladinSpellStats( classLevel: ClassLevel, charismaModifier: number ): SpellStats {
     const preparableSpells = Math.floor( charismaModifier + ( classLevel / 2 ) );
     const spellsKnownNumber = 'no limit';
     const cantripsKnownNumber = 0;
-    let spellsPerLongRest: number[];
+    let spellSlots: number[];
     if ( classLevel === 1 ) {
-      spellsPerLongRest = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 2 ) {
-      spellsPerLongRest = [ 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 3 || classLevel === 4 ) {
-      spellsPerLongRest = [ 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 5 || classLevel === 6 ) {
-      spellsPerLongRest = [ 0, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 2, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 7 || classLevel === 8 ) {
-      spellsPerLongRest = [ 0, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 0, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 9 || classLevel === 10 ) {
-      spellsPerLongRest = [ 0, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 2, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 11 || classLevel === 12 ) {
-      spellsPerLongRest = [ 0, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 3, 0, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 13 || classLevel === 14 ) {
-      spellsPerLongRest = [ 0, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 3, 1, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 15 || classLevel === 16 ) {
-      spellsPerLongRest = [ 0, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 3, 2, 0, 0, 0, 0, 0 ];
     }
     if ( classLevel === 17 || classLevel === 18 ) {
-      spellsPerLongRest = [ 0, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 3, 3, 1, 0, 0, 0, 0 ];
     }
     if ( classLevel === 19 || classLevel === 20 ) {
-      spellsPerLongRest = [ 0, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
+      spellSlots = [ 0, 4, 3, 3, 3, 2, 0, 0, 0, 0 ];
     }
 
-    return { spellsKnownNumber, preparableSpells, cantripsKnownNumber, spellsPerLongRest } as SpellStats;
+    return { spellsKnownNumber, preparableSpells, cantripsKnownNumber, spellSlots } as SpellStats;
   }
 
   getSingleClassSpellStats( character: Character, className: ClassName ): SpellStats {

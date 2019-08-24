@@ -4,9 +4,8 @@ import { ClassName } from '../classes/class-interfaces-and-types';
 export interface SpellStats {
   spellsKnownNumber?: number | 'no limit';
   cantripsKnownNumber?: number;
-  spellsPerLongRest?: number[];
+  spellSlots?: number[];
   spellsRemaining?: number[];
-  multiClassSpellsPerDay?: number[];
   spells?: string[];
   preparableSpells?: number;
   preparedSpells?: string[];
